@@ -1,0 +1,66 @@
+/* =========================================================================
+   TYPOGRAPHY: STRICT VERDANA STACK WITH EDITORIAL DISPLAY CHARM
+   ========================================================================= */
+
+body, button, input, select, textarea {
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.display-title-hero {
+  font-family: var(--font-primary);
+  font-size: clamp(2.2rem, 6vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 12px;
+}
+
+.section-heading-editorial {
+  font-family: var(--font-primary);
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+
+.section-subtitle-editorial {
+  font-family: var(--font-primary);
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  line-height: 1.55;
+  max-width: 720px;
+  margin-top: 10px;
+}
+
+.chapter-number-huge {
+  font-family: var(--font-mono);
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  opacity: 0.85;
+}
