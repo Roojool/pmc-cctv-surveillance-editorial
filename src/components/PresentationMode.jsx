@@ -17,7 +17,18 @@ export default function PresentationMode({ isOpen, onClose }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
   const [isOverviewOpen, setIsOverviewOpen] = useState(false);
+  const [showTopBar, setShowTopBar] = useState(false);
+  const [showBottomBar, setShowBottomBar] = useState(false);
   const containerRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const y = e.clientY;
+    const windowH = window.innerHeight;
+    const threshold = 95; // px near top or bottom edge
+
+    setShowTopBar(y <= threshold);
+    setShowBottomBar(y >= windowH - threshold);
+  };
 
   // Attempt browser fullscreen API on open
   useEffect(() => {
@@ -99,6 +110,11 @@ export default function PresentationMode({ isOpen, onClose }) {
   return (
     <div 
       ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        setShowTopBar(false);
+        setShowBottomBar(false);
+      }}
       style={{
         position: 'fixed',
         inset: 0,
@@ -110,16 +126,28 @@ export default function PresentationMode({ isOpen, onClose }) {
         overflow: 'hidden'
       }}
     >
-      {/* Top Presentation Bar */}
+      {/* Top Presentation Bar (Auto-reveals when hovering near the top) */}
       <div 
+        onMouseEnter={() => setShowTopBar(true)}
+        onMouseLeave={() => setShowTopBar(false)}
         style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
           height: '64px',
-          backgroundColor: '#0D0D0D',
+          backgroundColor: 'rgba(13, 13, 13, 0.95)',
+          backdropFilter: 'blur(8px)',
           borderBottom: '2px solid #222222',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 2rem'
+          padding: '0 2rem',
+          zIndex: 100,
+          transform: showTopBar ? 'translateY(0)' : 'translateY(-100%)',
+          opacity: showTopBar ? 1 : 0,
+          pointerEvents: showTopBar ? 'auto' : 'none',
+          transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
@@ -214,8 +242,9 @@ export default function PresentationMode({ isOpen, onClose }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem 4rem',
-          overflowY: 'auto'
+          padding: '5rem 4rem',
+          overflowY: 'auto',
+          boxSizing: 'border-box'
         }}
       >
         {/* SLIDE 0: INTRO */}
@@ -535,16 +564,28 @@ export default function PresentationMode({ isOpen, onClose }) {
         )}
       </div>
 
-      {/* Bottom Floating Presentation Navigation Bar */}
+      {/* Bottom Floating Presentation Navigation Bar (Auto-reveals when hovering near the bottom) */}
       <div 
+        onMouseEnter={() => setShowBottomBar(true)}
+        onMouseLeave={() => setShowBottomBar(false)}
         style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
           height: '68px',
-          backgroundColor: '#0D0D0D',
+          backgroundColor: 'rgba(13, 13, 13, 0.95)',
+          backdropFilter: 'blur(8px)',
           borderTop: '2px solid #222222',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 2rem'
+          padding: '0 2rem',
+          zIndex: 100,
+          transform: showBottomBar ? 'translateY(0)' : 'translateY(100%)',
+          opacity: showBottomBar ? 1 : 0,
+          pointerEvents: showBottomBar ? 'auto' : 'none',
+          transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease'
         }}
       >
         <div style={{ display: 'flex', gap: '0.75rem' }}>
