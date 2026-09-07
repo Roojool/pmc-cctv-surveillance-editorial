@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
+import AiIntelligenceIntro from './components/AiIntelligenceIntro';
 import AnalyticsSection from './components/AnalyticsSection';
-import LiveDetection from './components/LiveDetection';
 import HardwareSection from './components/HardwareSection';
 import Architecture from './components/Architecture';
-import SystemStatus from './components/SystemStatus';
 import Footer from './components/Footer';
 
 import VideoModal from './components/VideoModal';
 import FocusModal from './components/FocusModal';
 import SearchModal from './components/SearchModal';
-import Toast from './components/Toast';
+import PresentationMode from './components/PresentationMode';
 
 import { analyticsData } from './data/analyticsData';
 import { hardwareData } from './data/hardwareData';
@@ -21,23 +20,15 @@ export default function App() {
   const [activeVideoItem, setActiveVideoItem] = useState(null);
   const [activeFocusItem, setActiveFocusItem] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isPresentationOpen, setIsPresentationOpen] = useState(false);
 
-  // Global key bindings: Ctrl+K / '/' for search; Ctrl+P / Ctrl+S interception
+  // Global key bindings: Ctrl+K / '/' for search; Esc to close modals
   useEffect(() => {
     const handleKeyDown = (e) => {
       // Ctrl+K or '/'
       if ((e.ctrlKey && e.key.toLowerCase() === 'k') || (e.key === '/' && !['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase()))) {
         e.preventDefault();
         setIsSearchOpen(true);
-      }
-
-      // Print / Save Deterrence
-      if (e.ctrlKey && (e.key.toLowerCase() === 'p' || e.key.toLowerCase() === 's')) {
-        e.preventDefault();
-        setToastMessage("Presentation Mode Active: Document printing and direct script exports are restricted for this briefing.");
-        setIsToastVisible(true);
       }
     };
 
@@ -74,38 +65,43 @@ export default function App() {
   };
 
   return (
-    <div className="editorial-app-root">
-      {/* Top Sticky Navigation */}
-      <Navbar onOpenSearch={() => setIsSearchOpen(true)} />
+    <div className="editorial-root">
+      {/* Top Sticky Minimal Editorial Navigation */}
+      <Navbar 
+        onOpenSearch={() => setIsSearchOpen(true)}
+        onStartPresentation={() => setIsPresentationOpen(true)}
+      />
 
-      {/* 01. Intro Hero (Black) */}
-      <Hero />
+      {/* 01. Cover / Hero (Black) */}
+      <Hero 
+        onStartPresentation={() => setIsPresentationOpen(true)}
+      />
 
-      {/* 02. The System at a Glance (White) */}
-      <Stats />
+      {/* 02. The System At A Glance (White) */}
+      <Stats 
+        onStartPresentation={() => setIsPresentationOpen(true)}
+      />
 
-      {/* 03. AI Video Analytics (Black) */}
+      {/* 03. AI Video Intelligence Editorial Intro (Black) */}
+      <AiIntelligenceIntro />
+
+      {/* 04. AI Analytics Chapters with Varied Layouts (Black) */}
       <AnalyticsSection 
-        onOpenVideo={(item) => setActiveVideoItem(item)} 
-        onOpenFocus={(item) => setActiveFocusItem(item)} 
+        onOpenVideo={(item) => setActiveVideoItem(item)}
       />
 
-      {/* 04. Live Video Intelligence HUD (Black) */}
-      <LiveDetection />
-
-      {/* 05. Hardware Infrastructure (White) */}
+      {/* 05. Hardware Infrastructure with Varied Layouts (White) */}
       <HardwareSection 
-        onOpenFocus={(item) => setActiveFocusItem(item)} 
+        onOpenFocus={(item) => setActiveFocusItem(item)}
       />
 
-      {/* 06. How It All Connects - 8-Stage Pipeline (Black) */}
+      {/* 06. System Architecture: How It All Connects (Black) */}
       <Architecture />
 
-      {/* 07. System Status Terminal (Black) */}
-      <SystemStatus />
-
-      {/* 08. System Overview & Summary (White) */}
-      <Footer />
+      {/* 07. Executive Overview & Summary (White) */}
+      <Footer 
+        onStartPresentation={() => setIsPresentationOpen(true)}
+      />
 
       {/* Modals */}
       <VideoModal 
@@ -126,10 +122,10 @@ export default function App() {
         onSelectItem={handleSelectItem} 
       />
 
-      <Toast 
-        message={toastMessage} 
-        isVisible={isToastVisible} 
-        onClose={() => setIsToastVisible(false)} 
+      {/* Dedicated Presentation Mode */}
+      <PresentationMode 
+        isOpen={isPresentationOpen}
+        onClose={() => setIsPresentationOpen(false)}
       />
     </div>
   );

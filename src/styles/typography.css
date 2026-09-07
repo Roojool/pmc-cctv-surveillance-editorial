@@ -1,66 +1,61 @@
 /* =========================================================================
-   TYPOGRAPHY: STRICT VERDANA STACK WITH EDITORIAL DISPLAY CHARM
+   EDITORIAL TYPOGRAPHY
    ========================================================================= */
 
-body, button, input, select, textarea {
-  font-family: var(--font-primary);
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark-primary);
+  background-color: var(--color-black);
+  margin: 0;
+  padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
-.mono-tag {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.display-title-hero {
-  font-family: var(--font-primary);
-  font-size: clamp(2.2rem, 6vw, 4.4rem);
-  font-weight: 700;
-  line-height: 1.05;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
-  color: #FFFFFF;
+  line-height: 1.15;
+  margin: 0;
 }
 
-.section-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.headline-display {
+  font-family: var(--font-headline);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Editorial Metadata Stamp */
+.editorial-stamp {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-gold);
-  margin-bottom: 12px;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.section-heading-editorial {
-  font-family: var(--font-primary);
-  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.015em;
-  text-transform: uppercase;
-}
-
-.section-subtitle-editorial {
-  font-family: var(--font-primary);
-  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
-  line-height: 1.55;
-  max-width: 720px;
-  margin-top: 10px;
-}
-
-.chapter-number-huge {
-  font-family: var(--font-mono);
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 700;
-  line-height: 1;
+.editorial-number-huge {
+  font-family: var(--font-display);
+  font-weight: 800;
   letter-spacing: -0.04em;
-  opacity: 0.85;
+  line-height: 0.9;
 }

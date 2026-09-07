@@ -1,181 +1,254 @@
 import React from 'react';
-import { Layers, Eye, Cpu, ArrowRight } from 'lucide-react';
+import { Layers, ShieldCheck, Cpu, ArrowUpRight } from 'lucide-react';
 
-export default function Stats() {
+export default function Stats({ onStartPresentation }) {
   return (
-    <section id="glance" className="theme-white">
-      <div className="section-container">
+    <section 
+      id="stats" 
+      className="section-white"
+      style={{
+        padding: '6rem 0',
+        borderBottom: '3px solid #111111'
+      }}
+    >
+      <div className="container-editorial">
+        
         {/* Section Header */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 52px' }}>
-          <div className="section-eyebrow" style={{ color: '#111212', backgroundColor: '#F0C75E', padding: '4px 10px', borderRadius: '4px', display: 'inline-block' }}>
-            02 / THE ARCHITECTURE
+        <div style={{ maxWidth: '900px', marginBottom: '4rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <span 
+              style={{
+                backgroundColor: '#111111',
+                color: '#F0C75E',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                fontWeight: '800',
+                padding: '3px 8px',
+                border: '2px solid #111111'
+              }}
+            >
+              SECTION 02
+            </span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#66666E', letterSpacing: '0.08em', fontWeight: '700' }}>
+              MUNICIPAL ARCHITECTURE OVERVIEW
+            </span>
           </div>
-          <h2 className="section-heading-editorial" style={{ color: '#111212', marginTop: '12px' }}>
-            THE SYSTEM AT A GLANCE
+
+          <h2 
+            className="headline-display"
+            style={{
+              fontSize: 'clamp(2.2rem, 5vw, 4.2rem)',
+              color: '#111111',
+              lineHeight: 1.0,
+              textTransform: 'uppercase',
+              margin: '0.5rem 0 1.25rem 0'
+            }}
+          >
+            THE SYSTEM <br />
+            <span style={{ color: '#E14F71' }}>AT A GLANCE</span>
           </h2>
-          <p className="section-subtitle-editorial" style={{ color: 'var(--text-light-secondary)', margin: '12px auto 0' }}>
-            &ldquo;AI-powered video intelligence supported by a complete, robust surveillance infrastructure.&rdquo;
+
+          <p 
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '1.15rem',
+              color: '#4A4A50',
+              lineHeight: 1.6,
+              margin: 0
+            }}
+          >
+            An integrated surveillance framework combining cutting-edge deep learning video intelligence with ruggedized municipal infrastructure. The platform eliminates vendor lock-in through generalized, unbranded architectural specifications engineered for 24/7 high-throughput operation.
           </p>
         </div>
 
-        {/* 3 Physical Framed Metric Blocks */}
-        <div className="grid-cols-3">
+        {/* 3 Large Physical Metric Cards (AI Hackers Collective Inspired) */}
+        <div 
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '2.5rem',
+            marginBottom: '4rem'
+          }}
+        >
           {/* Card 1: 28 AI Analytics */}
-          <div className="framed-card-light">
+          <div 
+            style={{
+              backgroundColor: '#FFFFFF',
+              border: '3px solid #111111',
+              boxShadow: '8px 8px 0px #111111',
+              padding: '2.5rem 2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              minHeight: '320px',
+              borderRadius: '2px'
+            }}
+          >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                <span className="editorial-tag">CHAPTER 03</span>
-                <Eye size={22} color="#111212" />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '800', color: '#E14F71', letterSpacing: '0.06em' }}>
+                  CATALOGUE TIER 01
+                </span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#888890' }}>
+                  [ 01 — 28 ]
+                </span>
               </div>
-              <div
+
+              <div 
+                className="editorial-number-huge"
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 'clamp(3.5rem, 6vw, 4.8rem)',
-                  fontWeight: 800,
-                  lineHeight: 1,
-                  color: '#111212',
-                  marginBottom: '10px',
+                  fontSize: 'clamp(4.5rem, 9vw, 7rem)',
+                  color: '#111111',
+                  margin: '0.5rem 0'
                 }}
               >
                 28
               </div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-primary)',
-                  fontSize: '1.25rem',
-                  fontWeight: 800,
-                  textTransform: 'uppercase',
-                  color: '#111212',
-                  marginBottom: '12px',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                AI Video Analytics
+
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: '800', color: '#111111', marginBottom: '0.5rem' }}>
+                AI VIDEO ANALYTICS
               </h3>
-              <p
-                style={{
-                  fontSize: '0.88rem',
-                  lineHeight: 1.6,
-                  color: 'var(--text-light-secondary)',
-                  marginBottom: '24px',
-                }}
-              >
-                Deep-learning neural network computer vision models deployed at edge and server tiers for real-time target classification, tripwire crossings, perimeter protection, and anomalous event recognition.
+
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', color: '#55555C', lineHeight: 1.55, margin: 0 }}>
+                Comprehensive computer vision algorithms spanning face detection, silhouette segmentation, tripwire crossings, crowd density, unattended hazards, and incident verification.
               </p>
             </div>
-            <a
-              href="#analytics"
-              className="btn-editorial-primary"
-              style={{ width: '100%', textDecoration: 'none' }}
+
+            <a 
+              href="#analytics" 
+              style={{
+                marginTop: '2rem',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.8rem',
+                fontWeight: '800',
+                color: '#111111',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
             >
-              Explore 28 Analytics <ArrowRight size={14} />
+              EXPLORE 28 ANALYTICS <ArrowUpRight size={16} />
             </a>
           </div>
 
           {/* Card 2: 26 Hardware Components */}
-          <div className="framed-card-light">
+          <div 
+            style={{
+              backgroundColor: '#FFFFFF',
+              border: '3px solid #111111',
+              boxShadow: '8px 8px 0px #111111',
+              padding: '2.5rem 2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              minHeight: '320px',
+              borderRadius: '2px'
+            }}
+          >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                <span className="editorial-tag">CHAPTER 05</span>
-                <Cpu size={22} color="#111212" />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '800', color: '#D4A836', letterSpacing: '0.06em' }}>
+                  CATALOGUE TIER 02
+                </span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#888890' }}>
+                  [ 01 — 26 ]
+                </span>
               </div>
-              <div
+
+              <div 
+                className="editorial-number-huge"
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 'clamp(3.5rem, 6vw, 4.8rem)',
-                  fontWeight: 800,
-                  lineHeight: 1,
-                  color: '#111212',
-                  marginBottom: '10px',
+                  fontSize: 'clamp(4.5rem, 9vw, 7rem)',
+                  color: '#111111',
+                  margin: '0.5rem 0'
                 }}
               >
                 26
               </div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-primary)',
-                  fontSize: '1.25rem',
-                  fontWeight: 800,
-                  textTransform: 'uppercase',
-                  color: '#111212',
-                  marginBottom: '12px',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                Hardware Components
+
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: '800', color: '#111111', marginBottom: '0.5rem' }}>
+                HARDWARE NODES
               </h3>
-              <p
-                style={{
-                  fontSize: '0.88rem',
-                  lineHeight: 1.6,
-                  color: 'var(--text-light-secondary)',
-                  marginBottom: '24px',
-                }}
-              >
-                Physical optical cameras, enterprise recording platforms, high-throughput PoE switching, fiber backbones, power backup, and cybersecurity appliances forming the surveillance backbone.
+
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', color: '#55555C', lineHeight: 1.55, margin: 0 }}>
+                Enterprise surveillance hardware spanning high-definition optical cameras, distribution switches, 10GbE fiber transceivers, SAN/NAS arrays, UPS units, and cybersecurity appliances.
               </p>
             </div>
-            <a
-              href="#hardware"
-              className="btn-editorial-primary"
-              style={{ width: '100%', textDecoration: 'none' }}
+
+            <a 
+              href="#hardware" 
+              style={{
+                marginTop: '2rem',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.8rem',
+                fontWeight: '800',
+                color: '#111111',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
             >
-              Inspect 26 Components <ArrowRight size={14} />
+              EXPLORE 26 HARDWARE NODES <ArrowUpRight size={16} />
             </a>
           </div>
 
           {/* Card 3: 54 Total System Elements */}
-          <div className="framed-card-light" style={{ backgroundColor: '#111214', color: '#FFFFFF', borderColor: '#111212' }}>
+          <div 
+            style={{
+              backgroundColor: '#111111',
+              color: '#FFFFFF',
+              border: '3px solid #111111',
+              boxShadow: '8px 8px 0px rgba(0,0,0,0.3)',
+              padding: '2.5rem 2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              minHeight: '320px',
+              borderRadius: '2px'
+            }}
+          >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                <span className="editorial-tag" style={{ backgroundColor: '#F0C75E', color: '#111212' }}>TOTAL INVENTORY</span>
-                <Layers size={22} color="#F0C75E" />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '800', color: '#F0C75E', letterSpacing: '0.06em' }}>
+                  CONSOLIDATED DOSSIER
+                </span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#888890' }}>
+                  [ 100% COVERAGE ]
+                </span>
               </div>
-              <div
+
+              <div 
+                className="editorial-number-huge"
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 'clamp(3.5rem, 6vw, 4.8rem)',
-                  fontWeight: 800,
-                  lineHeight: 1,
+                  fontSize: 'clamp(4.5rem, 9vw, 7rem)',
                   color: '#F0C75E',
-                  marginBottom: '10px',
+                  margin: '0.5rem 0'
                 }}
               >
                 54
               </div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-primary)',
-                  fontSize: '1.25rem',
-                  fontWeight: 800,
-                  textTransform: 'uppercase',
-                  color: '#FFFFFF',
-                  marginBottom: '12px',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                Total System Elements
+
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: '800', color: '#FFFFFF', marginBottom: '0.5rem' }}>
+                SYSTEM ELEMENTS
               </h3>
-              <p
-                style={{
-                  fontSize: '0.88rem',
-                  lineHeight: 1.6,
-                  color: 'var(--text-dark-secondary)',
-                  marginBottom: '24px',
-                }}
-              >
-                A unified, end-to-end municipal security ecosystem operating under statutory privacy safeguards, standard operating procedures, and comprehensive data protection governance.
+
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
+                A unified, vendor-neutral operational blueprint designed to deliver rapid procurement evaluation, streamlined operator training, and statutory legal privacy compliance.
               </p>
             </div>
-            <a
-              href="#architecture"
-              className="btn-editorial-primary btn-editorial-gold"
-              style={{ width: '100%', textDecoration: 'none' }}
+
+            <button
+              onClick={onStartPresentation}
+              className="btn-editorial-primary"
+              style={{ marginTop: '2rem', width: '100%', justifyContent: 'center' }}
             >
-              View System Pipeline <ArrowRight size={14} />
-            </a>
+              VIEW FULL PRESENTATION →
+            </button>
           </div>
         </div>
+
       </div>
     </section>
   );

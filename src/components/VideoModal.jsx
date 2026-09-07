@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight, ExternalLink, ShieldAlert } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
 import { analyticsData } from '../data/analyticsData';
 
 export default function VideoModal({ activeItem, onClose, onSelectNext, onSelectPrev }) {
   if (!activeItem) return null;
 
-  // Handle escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -24,8 +23,8 @@ export default function VideoModal({ activeItem, onClose, onSelectNext, onSelect
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: 'rgba(0, 0, 0, 0.88)',
-        backdropFilter: 'blur(6px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.92)',
+        backdropFilter: 'blur(8px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -36,34 +35,43 @@ export default function VideoModal({ activeItem, onClose, onSelectNext, onSelect
       <div 
         style={{
           width: '100%',
-          maxWidth: '1000px',
-          background: '#18191a',
-          border: '3px solid #333638',
+          maxWidth: '1050px',
+          backgroundColor: '#141414',
+          border: '3px solid #333333',
           boxShadow: '12px 12px 0px #000000',
-          borderRadius: '4px',
+          borderRadius: '2px',
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column'
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Top Bar */}
+        {/* Top Header */}
         <div 
           style={{
-            background: '#111212',
-            padding: '1rem 1.5rem',
-            borderBottom: '3px solid #333638',
+            backgroundColor: '#0D0D0D',
+            padding: '1rem 1.75rem',
+            borderBottom: '3px solid #2B2B2B',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: '1rem'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ background: '#E14F71', color: '#FFFFFF', padding: '2px 8px', fontSize: '0.78rem', fontWeight: 'bold' }}>
-              AN-{itemNumber}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span 
+              style={{
+                backgroundColor: '#E14F71',
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-mono)',
+                padding: '3px 8px',
+                fontSize: '0.78rem',
+                fontWeight: '800'
+              }}
+            >
+              {itemNumber} / 28
             </span>
-            <span style={{ color: '#FFFFFF', fontWeight: 'bold', fontSize: '1.1rem', fontFamily: 'Verdana, sans-serif' }}>
+            <span style={{ fontFamily: 'var(--font-display)', color: '#FFFFFF', fontWeight: '800', fontSize: '1.25rem' }}>
               {activeItem.name}
             </span>
           </div>
@@ -71,9 +79,9 @@ export default function VideoModal({ activeItem, onClose, onSelectNext, onSelect
           <button
             onClick={onClose}
             style={{
-              background: '#242628',
+              backgroundColor: '#222222',
               color: '#FFFFFF',
-              border: '2px solid #444749',
+              border: '2px solid #444444',
               padding: '6px',
               cursor: 'pointer',
               display: 'flex',
@@ -86,8 +94,8 @@ export default function VideoModal({ activeItem, onClose, onSelectNext, onSelect
           </button>
         </div>
 
-        {/* 16:9 YouTube Video Embed Container */}
-        <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', background: '#000000' }}>
+        {/* 16:9 Lazy-loaded YouTube Embed */}
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', backgroundColor: '#000000' }}>
           <iframe 
             src={`https://www.youtube-nocookie.com/embed/${activeItem.video_id}?autoplay=1&rel=0&modestbranding=1`}
             title={activeItem.name}
@@ -97,50 +105,50 @@ export default function VideoModal({ activeItem, onClose, onSelectNext, onSelect
           />
         </div>
 
-        {/* Modal Bottom Metadata & Nav Bar */}
+        {/* Bottom Details & Controls */}
         <div 
           style={{
-            padding: '1.25rem 1.5rem',
-            background: '#18191a',
-            borderTop: '2px solid #333638',
+            padding: '1.5rem 1.75rem',
+            backgroundColor: '#141414',
+            borderTop: '2px solid #282828',
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem'
           }}
         >
           <div>
-            <div style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#F0C75E', letterSpacing: '0.05em' }}>
-              {activeItem.category.toUpperCase()} // SOURCE: {activeItem.video_author}
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '700', color: '#F0C75E', letterSpacing: '0.05em' }}>
+              {activeItem.category.toUpperCase()}
             </div>
-            <p style={{ fontSize: '0.92rem', color: '#D2D5D7', margin: '0.35rem 0 0 0', lineHeight: 1.5 }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.98rem', color: '#FFFFFF', margin: '0.35rem 0 0 0', lineHeight: 1.55 }}>
               {activeItem.one_liner}
             </p>
           </div>
 
-          {/* Stepper Controls */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #333638', paddingTop: '0.75rem' }}>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #2A2A2A', paddingTop: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
               <button
                 onClick={onSelectPrev}
                 className="btn-editorial-dark"
                 style={{ padding: '0.5rem 1rem', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '4px' }}
               >
-                <ChevronLeft size={16} /> PREVIOUS DEMO
+                <ChevronLeft size={16} /> PREVIOUS
               </button>
               <button
                 onClick={onSelectNext}
                 className="btn-editorial-pink"
                 style={{ padding: '0.5rem 1rem', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '4px' }}
               >
-                NEXT DEMO <ChevronRight size={16} />
+                NEXT <ChevronRight size={16} />
               </button>
             </div>
 
-            <span style={{ fontSize: '0.78rem', color: '#8C9093' }}>
-              Item {activeItem.id} of 28 • Use [←] [→] keys
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#888890' }}>
+              ITEM {activeItem.id} OF 28 • USE [←] [→] KEYS
             </span>
           </div>
         </div>
+
       </div>
     </div>
   );

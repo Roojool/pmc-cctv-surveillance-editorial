@@ -1,208 +1,227 @@
 import React from 'react';
-import { Layers, HardDrive, Shield, CheckCircle, ExternalLink, Maximize2 } from 'lucide-react';
+import { Maximize2, ShieldCheck, HardDrive } from 'lucide-react';
 
-export default function HardwareItem({ item, onOpenFocus }) {
+export default function HardwareItem({ item, index, onOpenFocus }) {
   const itemNumber = String(item.id).padStart(2, '0');
   const imageUrl = `${import.meta.env.BASE_URL}${item.image}`;
+  const isAlternate = index % 2 === 1;
+  const isFeature = index % 4 === 2; // Every 4th item is full-width exhibition feature
 
-  return (
-    <div 
-      id={`hw-${item.id}`}
+  // Common image frame
+  const renderImageFrame = (aspect = '16 / 9', extraStyles = {}) => (
+    <div
+      onClick={() => onOpenFocus(item)}
       style={{
-        background: '#FFFFFF',
-        border: '3px solid #111212',
-        boxShadow: '6px 6px 0px #111212',
-        borderRadius: '4px',
-        display: 'flex',
-        flexDirection: 'column',
+        position: 'relative',
+        aspectRatio: aspect,
+        backgroundColor: '#EAEAEB',
+        border: '3px solid #111111',
+        boxShadow: '6px 6px 0px #111111',
         overflow: 'hidden',
-        height: '100%',
-        transition: 'transform 0.15s ease, box-shadow 0.15s ease'
+        cursor: 'pointer',
+        borderRadius: '2px',
+        ...extraStyles
       }}
-      className="hardware-card-editorial"
+      title={`Inspect ${item.name}`}
     >
-      {/* Top Banner Tag */}
-      <div 
+      <img
+        src={imageUrl}
+        alt={item.name}
         style={{
-          background: '#111212',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block',
+          transition: 'transform 0.3s ease'
+        }}
+        loading="lazy"
+      />
+
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '10px',
+          right: '10px',
+          backgroundColor: '#111111',
           color: '#FFFFFF',
-          padding: '0.65rem 1rem',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.7rem',
+          fontWeight: '700',
+          padding: '4px 8px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '3px solid #111212'
+          gap: '4px'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ color: '#F0C75E', fontWeight: 'bold', fontSize: '0.85rem' }}>
-            HW-{itemNumber}
-          </span>
-          <span style={{ color: '#686B6E' }}>|</span>
-          <span 
-            style={{
-              background: '#242628',
-              color: '#FFFFFF',
-              padding: '2px 8px',
-              fontSize: '0.7rem',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              maxWidth: '170px',
-              display: 'inline-block'
-            }}
-          >
-            {item.category.toUpperCase()}
-          </span>
-        </div>
-        <span style={{ fontSize: '0.68rem', color: '#8C9093', fontWeight: 'bold' }}>
-          UNBRANDED SPEC
-        </span>
+        <Maximize2 size={12} />
+        INSPECT SPEC
       </div>
 
-      {/* Visual Container (1280x720 16:9) */}
-      <div 
-        onClick={() => onOpenFocus(item)}
+      <div
         style={{
-          position: 'relative',
-          aspectRatio: '16 / 9',
-          background: '#F0F1F2',
-          borderBottom: '3px solid #111212',
-          overflow: 'hidden',
-          cursor: 'pointer'
+          position: 'absolute',
+          top: '10px',
+          left: '10px',
+          backgroundColor: '#111111',
+          color: '#F0C75E',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.72rem',
+          fontWeight: '800',
+          padding: '3px 8px'
         }}
-        title={`Inspect ${item.name}`}
       >
-        <img 
-          src={imageUrl} 
-          alt={item.name}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-            transition: 'transform 0.3s ease'
-          }}
-          loading="lazy"
-        />
-
-        <div 
-          style={{
-            position: 'absolute',
-            bottom: '8px',
-            right: '8px',
-            background: 'rgba(17, 18, 18, 0.85)',
-            color: '#FFFFFF',
-            border: '2px solid #111212',
-            padding: '3px 7px',
-            fontSize: '0.68rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            fontWeight: 'bold'
-          }}
-        >
-          <Maximize2 size={12} />
-          INSPECT
-        </div>
+        HW-{itemNumber}
       </div>
+    </div>
+  );
 
-      {/* Body Content */}
-      <div 
+  // Common Header Pill
+  const renderHeaderPill = () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
+      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: '800', fontSize: '0.88rem', color: '#111111' }}>
+        HW-{itemNumber} / 26
+      </span>
+      <span
+        className="category-badge-pill"
         style={{
-          padding: '1.25rem',
-          display: 'flex',
-          flexDirection: 'column',
-          flex: 1,
-          gap: '0.85rem',
-          background: '#FFFFFF'
+          backgroundColor: '#111111',
+          color: '#F0C75E'
         }}
       >
-        {/* Name */}
-        <h4 
-          style={{
-            fontFamily: 'Verdana, sans-serif',
-            fontWeight: '700',
-            fontSize: '1.25rem',
-            color: '#111212',
-            margin: 0,
-            lineHeight: 1.3
-          }}
-        >
-          {item.name}
-        </h4>
+        {item.category.toUpperCase()}
+      </span>
+    </div>
+  );
 
-        {/* One-liner */}
-        <p 
-          style={{
-            fontFamily: 'Verdana, sans-serif',
-            fontSize: '0.88rem',
-            color: '#333638',
-            lineHeight: 1.5,
-            margin: 0,
-            fontWeight: '500'
-          }}
-        >
-          {item.one_liner}
-        </p>
+  // Common Distinction Callout
+  const renderDistinction = () => (
+    <div className="editorial-callout-distinction" style={{ marginTop: '0.5rem' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', fontWeight: '800', color: '#976A00', letterSpacing: '0.08em', marginBottom: '2px' }}>
+        OPERATIONAL DISTINCTION
+      </div>
+      <div style={{ fontSize: '0.86rem', color: '#444749', lineHeight: 1.5, margin: 0 }}>
+        {item.distinction}
+      </div>
+    </div>
+  );
 
-        {/* Technical Purpose & PMC Role */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: 'auto' }}>
-          <div style={{ background: '#F7F8F9', padding: '0.65rem 0.75rem', border: '1px solid #D2D5D7', borderRadius: '2px' }}>
-            <div style={{ fontSize: '0.68rem', fontWeight: 'bold', color: '#686B6E', letterSpacing: '0.05em' }}>
-              PRIMARY PURPOSE:
+  // Feature Layout (Full-Width Exhibition)
+  if (isFeature) {
+    return (
+      <article
+        id={`hw-${item.id}`}
+        style={{
+          backgroundColor: '#FFFFFF',
+          border: '3px solid #111111',
+          boxShadow: '8px 8px 0px #111111',
+          padding: '2.5rem',
+          marginBottom: '3.5rem',
+          borderRadius: '2px'
+        }}
+      >
+        <div style={{ borderBottom: '2px solid #E4E4E6', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+          {renderHeaderPill()}
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', fontWeight: '800', color: '#111111', lineHeight: 1.15, margin: '0.25rem 0' }}>
+            {item.name}
+          </h3>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.05rem', color: '#333338', margin: 0, fontWeight: '500' }}>
+            {item.one_liner}
+          </p>
+        </div>
+
+        <div style={{ maxWidth: '950px', width: '100%', margin: '0 auto 2rem auto' }}>
+          {renderImageFrame('16 / 9', { width: '100%' })}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ backgroundColor: '#F8F8FA', border: '1px solid #D8D8DC', padding: '1rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '700', color: '#686B6E', letterSpacing: '0.05em' }}>
+              PRIMARY PURPOSE
             </div>
-            <div style={{ fontSize: '0.82rem', color: '#111212', lineHeight: 1.45, marginTop: '2px' }}>
+            <div style={{ fontSize: '0.88rem', color: '#111111', lineHeight: 1.5, marginTop: '3px' }}>
               {item.purpose}
             </div>
           </div>
 
-          <div style={{ background: '#F7F8F9', padding: '0.65rem 0.75rem', border: '1px solid #D2D5D7', borderRadius: '2px' }}>
-            <div style={{ fontSize: '0.68rem', fontWeight: 'bold', color: '#686B6E', letterSpacing: '0.05em' }}>
-              ROLE IN PMC SURVEILLANCE:
+          <div style={{ backgroundColor: '#F8F8FA', border: '1px solid #D8D8DC', padding: '1rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '700', color: '#686B6E', letterSpacing: '0.05em' }}>
+              ROLE IN PMC SURVEILLANCE
             </div>
-            <div style={{ fontSize: '0.82rem', color: '#111212', lineHeight: 1.45, marginTop: '2px' }}>
+            <div style={{ fontSize: '0.88rem', color: '#111111', lineHeight: 1.5, marginTop: '3px' }}>
               {item.system_role}
             </div>
           </div>
 
-          {/* Distinction Callout */}
-          <div 
-            style={{
-              background: '#FFFDF5',
-              border: '1px solid #E2BD55',
-              borderLeft: '4px solid #F0C75E',
-              padding: '0.65rem 0.75rem',
-              borderRadius: '2px'
-            }}
-          >
-            <div style={{ fontSize: '0.68rem', fontWeight: 'bold', color: '#976A00', letterSpacing: '0.05em' }}>
-              OPERATIONAL DISTINCTION:
-            </div>
-            <div style={{ fontSize: '0.82rem', color: '#444749', lineHeight: 1.45, marginTop: '2px' }}>
-              {item.distinction}
-            </div>
+          <div>
+            {renderDistinction()}
           </div>
         </div>
+      </article>
+    );
+  }
 
-        {/* Action Button */}
+  // Standard Split Layout (Alternating Left/Right)
+  return (
+    <article
+      id={`hw-${item.id}`}
+      style={{
+        backgroundColor: '#FFFFFF',
+        border: '3px solid #111111',
+        boxShadow: '8px 8px 0px #111111',
+        padding: '2.5rem',
+        marginBottom: '3rem',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '2.5rem',
+        alignItems: 'center',
+        borderRadius: '2px'
+      }}
+    >
+      <div style={{ order: isAlternate ? 2 : 1 }}>
+        {renderImageFrame()}
+      </div>
+
+      <div style={{ order: isAlternate ? 1 : 2, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+        {renderHeaderPill()}
+
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: '800', color: '#111111', lineHeight: 1.2, margin: 0 }}>
+          {item.name}
+        </h3>
+
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: '#333338', fontWeight: '500', lineHeight: 1.55, margin: 0, borderLeft: '4px solid #111111', paddingLeft: '1rem' }}>
+          {item.one_liner}
+        </p>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.25rem' }}>
+          <div style={{ backgroundColor: '#F8F8FA', border: '1px solid #D8D8DC', padding: '0.75rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', fontWeight: '700', color: '#686B6E', letterSpacing: '0.05em' }}>
+              PRIMARY PURPOSE:
+            </div>
+            <div style={{ fontSize: '0.85rem', color: '#111111', lineHeight: 1.45, marginTop: '2px' }}>
+              {item.purpose}
+            </div>
+          </div>
+
+          <div style={{ backgroundColor: '#F8F8FA', border: '1px solid #D8D8DC', padding: '0.75rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', fontWeight: '700', color: '#686B6E', letterSpacing: '0.05em' }}>
+              ROLE IN PMC SURVEILLANCE:
+            </div>
+            <div style={{ fontSize: '0.85rem', color: '#111111', lineHeight: 1.45, marginTop: '2px' }}>
+              {item.system_role}
+            </div>
+          </div>
+
+          {renderDistinction()}
+        </div>
+
         <button
           onClick={() => onOpenFocus(item)}
           className="btn-editorial-dark"
-          style={{
-            marginTop: '0.75rem',
-            padding: '0.6rem 1rem',
-            fontSize: '0.78rem',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '6px'
-          }}
+          style={{ marginTop: '0.5rem', alignSelf: 'flex-start', padding: '0.65rem 1.25rem' }}
         >
           VIEW ARCHITECTURE SPECIFICATION
         </button>
       </div>
-    </div>
+    </article>
   );
 }

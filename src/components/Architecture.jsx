@@ -1,46 +1,157 @@
 import React, { useState } from 'react';
-import ChapterHeader from './ChapterHeader';
-import { pipelineStages } from '../data/architectureData';
-import { Network, Server, Cpu, Shield, ArrowRight, Activity, Terminal } from 'lucide-react';
+import { Camera, Network, Server, HardDrive, Cpu, ShieldCheck, ArrowRight, CheckCircle2 } from 'lucide-react';
+
+const ARCHITECTURE_STEPS = [
+  {
+    step: "01",
+    name: "OPTICAL & THERMAL SENSORS",
+    category: "Physical Edge",
+    summary: "Fixed, bullet, PTZ, ANPR, and thermal cameras continuously capture multi-channel video across municipal roadways and facilities.",
+    tech: "1080p / 4K Optical Sensors • Low-light IR • Starlight CMOS",
+    role: "Generates the foundational visual and thermal evidence streams."
+  },
+  {
+    step: "02",
+    name: "TRANSMISSION NETWORK",
+    category: "Connectivity",
+    summary: "Industrial PoE switches and 10GbE single-mode fiber backbones aggregate and transport encrypted video payloads to central racks.",
+    tech: "802.3bt PoE+ • 10Gbps SFP+ Fiber Rings • Encrypted Backhaul",
+    role: "Ensures deterministic low-latency transport without packet loss."
+  },
+  {
+    step: "03",
+    name: "NVR & STORAGE TIERS",
+    category: "Data Retention",
+    summary: "High-density enterprise Network Video Recorders and SAN/NAS storage arrays archive incoming multi-channel streams with RAID redundancy.",
+    tech: "RAID 6 Arrays • Redundant SAS Controllers • Hot-Spare Drives",
+    role: "Guarantees statutory video retention and continuous forensic integrity."
+  },
+  {
+    step: "04",
+    name: "CENTRAL VMS PLATFORM",
+    category: "Platform Core",
+    summary: "Unified Video Management System coordinates stream ingestion, camera discovery, user authentication, and multi-monitor wall layouts.",
+    tech: "Carrier-Grade VMS Cluster • ONVIF Profile S/G/T • REST APIs",
+    role: "Acts as the single operational pane of glass for all municipal feeds."
+  },
+  {
+    step: "05",
+    name: "AI VIDEO INTELLIGENCE",
+    category: "Neural Compute",
+    summary: "Deep neural networks execute concurrent inference on video frames to detect faces, recognize vehicles, classify silhouettes, and track anomalies.",
+    tech: "High-Throughput GPU Accelerators • Convolutional Neural Nets",
+    role: "Extracts real-time cognitive awareness from raw video pixels."
+  },
+  {
+    step: "06",
+    name: "ZONE & RULE CORRELATION",
+    category: "Analytical Logic",
+    summary: "Virtual tripwires, directional vectors, and dwell timers evaluate whether classified targets trigger line-crossing or intrusion alerts.",
+    tech: "Spatial Polygon Geometry • Trajectory Vectoring • Dwell Timers",
+    role: "Eliminates false alarms from wind, weather, and background motion."
+  },
+  {
+    step: "07",
+    name: "COMMAND ROOM CONSOLES",
+    category: "Human Oversight",
+    summary: "Municipal control room operators monitor ultra-high-definition video walls and receive prioritized incident alerts on dedicated consoles.",
+    tech: "Multi-Screen Operator Consoles • High-DPI Video Walls",
+    role: "Enables rapid human verification and situational assessment."
+  },
+  {
+    step: "08",
+    name: "INCIDENT DISPATCH & AUDIT",
+    category: "Operational Action",
+    summary: "Automated escalation workflows dispatch field patrol officers, bookmark evidentiary video clips, and log immutable tamper-proof audit trails.",
+    tech: "CAD System Interop • Push Notifications • Encrypted Audit Logs",
+    role: "Closes the loop from automated detection to coordinated field response."
+  }
+];
 
 export default function Architecture() {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const currentStage = pipelineStages[activeStepIndex];
+  const activeStep = ARCHITECTURE_STEPS[activeStepIndex];
 
   return (
-    <section id="architecture" className="theme-black" style={{ padding: '5rem 0', borderTop: '4px solid #111212' }}>
-      <div className="editorial-container">
+    <section 
+      id="architecture" 
+      className="section-black"
+      style={{
+        padding: '6rem 0',
+        borderBottom: '3px solid #111111'
+      }}
+    >
+      <div className="container-editorial">
         
-        {/* Section Header */}
-        <ChapterHeader 
-          number="06"
-          category="PIPELINE INTEGRATION"
-          title="HOW IT ALL CONNECTS"
-          subtitle="End-to-end data flow mapping: from optical edge photons through 10GbE fiber, deep neural inference, to command dispatch."
-          theme="black"
-        />
+        {/* Header */}
+        <div style={{ maxWidth: '950px', marginBottom: '4rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <span 
+              style={{
+                backgroundColor: '#F0C75E',
+                color: '#111111',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                fontWeight: '800',
+                padding: '3px 8px',
+                border: '2px solid #111111'
+              }}
+            >
+              SECTION 06
+            </span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#888890', letterSpacing: '0.08em', fontWeight: '700' }}>
+              PIPELINE INTEGRATION
+            </span>
+          </div>
 
-        {/* Interactive 8-Stage Stepper Bar */}
+          <h2 
+            className="headline-display"
+            style={{
+              fontSize: 'clamp(2.2rem, 5vw, 4.2rem)',
+              color: '#FFFFFF',
+              lineHeight: 1.0,
+              textTransform: 'uppercase',
+              margin: '0.5rem 0 1.25rem 0'
+            }}
+          >
+            HOW IT ALL CONNECTS <br />
+            <span style={{ color: '#E14F71' }}>THE MUNICIPAL SURVEILLANCE PIPELINE</span>
+          </h2>
+
+          <p 
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '1.15rem',
+              color: '#B0B0B5',
+              lineHeight: 1.6,
+              margin: 0
+            }}
+          >
+            An exhibition diagram tracking the sequential journey of surveillance intelligence: from physical photons captured at the optical edge, through gigabit fiber transmission, to deep learning inference and coordinated human dispatch.
+          </p>
+        </div>
+
+        {/* Exhibition Pipeline Flow Stepper (Not corporate flowchart) */}
         <div 
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
             gap: '0.5rem',
-            marginBottom: '2.5rem'
+            marginBottom: '3rem'
           }}
         >
-          {pipelineStages.map((stage, idx) => {
+          {ARCHITECTURE_STEPS.map((s, idx) => {
             const isActive = idx === activeStepIndex;
             return (
               <button
-                key={stage.step}
+                key={s.step}
                 onClick={() => setActiveStepIndex(idx)}
                 style={{
-                  background: isActive ? '#E14F71' : '#18191a',
-                  color: isActive ? '#FFFFFF' : '#B4B7B9',
-                  border: isActive ? '3px solid #FFFFFF' : '3px solid #333638',
+                  backgroundColor: isActive ? '#E14F71' : '#141414',
+                  color: isActive ? '#FFFFFF' : '#B0B0B5',
+                  border: isActive ? '3px solid #FFFFFF' : '3px solid #282828',
                   boxShadow: isActive ? '4px 4px 0px #000000' : 'none',
-                  padding: '1rem 0.5rem',
+                  padding: '1.25rem 0.75rem',
                   cursor: 'pointer',
                   textAlign: 'left',
                   display: 'flex',
@@ -50,152 +161,156 @@ export default function Architecture() {
                   transition: 'all 0.15s ease'
                 }}
               >
-                <span style={{ fontSize: '0.7rem', fontWeight: 'bold', color: isActive ? '#FFFFFF' : '#F0C75E', letterSpacing: '0.05em' }}>
-                  STAGE {stage.step}
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '800', color: isActive ? '#FFFFFF' : '#F0C75E' }}>
+                  STAGE {s.step}
                 </span>
-                <span style={{ fontSize: '0.82rem', fontWeight: 'bold', lineHeight: 1.2, fontFamily: 'Verdana, sans-serif' }}>
-                  {stage.name}
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.85rem', fontWeight: '700', lineHeight: 1.2 }}>
+                  {s.name}
                 </span>
               </button>
             );
           })}
         </div>
 
-        {/* Selected Stage Focus Card */}
+        {/* Active Stage Detailed Exhibition Card */}
         <div 
           style={{
-            background: '#18191a',
-            border: '3px solid #333638',
-            boxShadow: '8px 8px 0px #000000',
-            padding: '2.5rem',
-            borderRadius: '4px',
+            backgroundColor: '#141414',
+            border: '3px solid #2E2E2E',
+            boxShadow: '10px 10px 0px #000000',
+            padding: '3rem',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '2.5rem',
-            alignItems: 'center'
+            gap: '3rem',
+            alignItems: 'center',
+            borderRadius: '2px'
           }}
         >
-          {/* Left Column: Stage Detail */}
+          {/* Left Column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <span 
                 style={{
-                  background: '#E14F71',
+                  backgroundColor: '#E14F71',
                   color: '#FFFFFF',
-                  padding: '4px 12px',
-                  fontWeight: 'bold',
-                  fontSize: '0.85rem'
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.8rem',
+                  fontWeight: '800',
+                  padding: '4px 10px'
                 }}
               >
-                STAGE {currentStage.step} // 08
+                STAGE {activeStep.step} / 08
               </span>
               <span 
                 style={{
-                  background: '#242628',
+                  backgroundColor: '#222222',
                   color: '#F0C75E',
-                  padding: '4px 10px',
+                  fontFamily: 'var(--font-mono)',
                   fontSize: '0.75rem',
-                  fontWeight: 'bold',
-                  border: '1px solid #444749'
+                  fontWeight: '700',
+                  padding: '4px 10px',
+                  border: '1px solid #3A3A3A'
                 }}
               >
-                {currentStage.category.toUpperCase()}
+                {activeStep.category.toUpperCase()}
               </span>
             </div>
 
-            <h3 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#FFFFFF', margin: 0, lineHeight: 1.2 }}>
-              {currentStage.name}
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.1, margin: 0 }}>
+              {activeStep.name}
             </h3>
 
-            <p style={{ fontSize: '1.05rem', color: '#D2D5D7', lineHeight: 1.6, margin: 0 }}>
-              {currentStage.description}
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.1rem', color: '#D4D4D8', lineHeight: 1.6, margin: 0 }}>
+              {activeStep.summary}
             </p>
 
-            {/* Architecture specs grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '0.5rem' }}>
-              <div style={{ background: '#111212', border: '2px solid #333638', padding: '1rem' }}>
-                <div style={{ fontSize: '0.7rem', color: '#8C9093', fontWeight: 'bold' }}>UNDERLYING TECHNOLOGY</div>
-                <div style={{ fontSize: '0.88rem', color: '#FFFFFF', fontWeight: 'bold', marginTop: '4px' }}>
-                  {currentStage.tech}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
+              <div style={{ backgroundColor: '#0D0D0D', border: '1px solid #282828', padding: '1rem' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#888890', fontWeight: '700', letterSpacing: '0.05em' }}>
+                  UNDERLYING INDUSTRIAL STANDARD / TECHNOLOGY
+                </div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', color: '#FFFFFF', fontWeight: '700', marginTop: '3px' }}>
+                  {activeStep.tech}
                 </div>
               </div>
 
-              <div style={{ background: '#111212', border: '2px solid #333638', padding: '1rem' }}>
-                <div style={{ fontSize: '0.7rem', color: '#8C9093', fontWeight: 'bold' }}>NODE OPERATIONAL TELEMETRY</div>
-                <div style={{ fontSize: '0.88rem', color: '#4ADE80', fontWeight: 'bold', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80' }}></span>
-                  {currentStage.status}
+              <div style={{ backgroundColor: '#0D0D0D', border: '1px solid #282828', padding: '1rem' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#888890', fontWeight: '700', letterSpacing: '0.05em' }}>
+                  STRATEGIC ROLE IN SURVEILLANCE
+                </div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', color: '#F0C75E', fontWeight: '700', marginTop: '3px' }}>
+                  {activeStep.role}
                 </div>
               </div>
             </div>
 
-            {/* Step navigation buttons */}
+            {/* Stepper Buttons */}
             <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
               <button
                 disabled={activeStepIndex === 0}
                 onClick={() => setActiveStepIndex(prev => Math.max(0, prev - 1))}
                 className="btn-editorial-dark"
-                style={{ opacity: activeStepIndex === 0 ? 0.4 : 1, padding: '0.6rem 1.2rem', fontSize: '0.8rem' }}
+                style={{ opacity: activeStepIndex === 0 ? 0.3 : 1, padding: '0.6rem 1.25rem' }}
               >
-                PREVIOUS STAGE
+                ← PREVIOUS STAGE
               </button>
               <button
-                disabled={activeStepIndex === pipelineStages.length - 1}
-                onClick={() => setActiveStepIndex(prev => Math.min(pipelineStages.length - 1, prev + 1))}
+                disabled={activeStepIndex === ARCHITECTURE_STEPS.length - 1}
+                onClick={() => setActiveStepIndex(prev => Math.min(ARCHITECTURE_STEPS.length - 1, prev + 1))}
                 className="btn-editorial-pink"
-                style={{ opacity: activeStepIndex === pipelineStages.length - 1 ? 0.4 : 1, padding: '0.6rem 1.2rem', fontSize: '0.8rem' }}
+                style={{ opacity: activeStepIndex === ARCHITECTURE_STEPS.length - 1 ? 0.3 : 1, padding: '0.6rem 1.25rem' }}
               >
-                NEXT STAGE
+                NEXT STAGE →
               </button>
             </div>
           </div>
 
-          {/* Right Column: Conceptual Architectural Diagram Block */}
+          {/* Right Column: Architectural Schematic Progression */}
           <div 
             style={{
-              background: '#111212',
-              border: '3px solid #333638',
+              backgroundColor: '#0D0D0D',
+              border: '3px solid #2A2A2A',
               boxShadow: '6px 6px 0px #000000',
-              padding: '1.75rem',
+              padding: '2rem',
               display: 'flex',
               flexDirection: 'column',
-              gap: '1rem'
+              gap: '1.25rem'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid #333638', paddingBottom: '0.75rem' }}>
-              <span style={{ fontSize: '0.78rem', color: '#F0C75E', fontWeight: 'bold', letterSpacing: '0.08em' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #222222', paddingBottom: '0.75rem' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '800', color: '#F0C75E' }}>
                 ARCHITECTURE PIPELINE SYNOPSIS
               </span>
-              <span style={{ fontSize: '0.72rem', color: '#8C9093' }}>
-                DETERMINISTIC LATENCY &lt; 200MS
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#888890' }}>
+                DETERMINISTIC LATENCY
               </span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#18191a', padding: '0.75rem', border: '1px solid #333638' }}>
-                <span style={{ background: '#333638', color: '#FFFFFF', padding: '2px 6px', fontSize: '0.7rem', fontWeight: 'bold' }}>EDGE</span>
-                <span style={{ fontSize: '0.85rem', color: '#FFFFFF' }}>Optical Sensors capture 1080p/4K 30fps frames</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', backgroundColor: '#141414', padding: '0.75rem 1rem', border: '1px solid #282828' }}>
+                <span style={{ backgroundColor: '#2B2B2B', color: '#FFFFFF', padding: '2px 6px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '700' }}>01 EDGE</span>
+                <span style={{ fontSize: '0.88rem', color: '#FFFFFF' }}>Optical Sensors capture 1080p/4K frames</span>
               </div>
 
-              <div style={{ textAlign: 'center', color: '#E14F71' }}>↓ 10GbE Single-Mode Fiber Backhaul</div>
+              <div style={{ textAlign: 'center', color: '#E14F71', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>↓ 10GbE Fiber Ring Backbone</div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#18191a', padding: '0.75rem', border: '1px solid #333638' }}>
-                <span style={{ background: '#E14F71', color: '#FFFFFF', padding: '2px 6px', fontSize: '0.7rem', fontWeight: 'bold' }}>CORE</span>
-                <span style={{ fontSize: '0.85rem', color: '#FFFFFF' }}>Carrier-Grade VMS & RAID-6 Storage Archiving</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', backgroundColor: '#141414', padding: '0.75rem 1rem', border: '1px solid #282828' }}>
+                <span style={{ backgroundColor: '#E14F71', color: '#FFFFFF', padding: '2px 6px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '700' }}>02 CORE</span>
+                <span style={{ fontSize: '0.88rem', color: '#FFFFFF' }}>VMS Management & RAID-6 Storage Archival</span>
               </div>
 
-              <div style={{ textAlign: 'center', color: '#F0C75E' }}>↓ Parallel GPU Neural Decoding</div>
+              <div style={{ textAlign: 'center', color: '#F0C75E', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>↓ Neural GPU Parallel Decoding</div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#18191a', padding: '0.75rem', border: '1px solid #333638' }}>
-                <span style={{ background: '#F0C75E', color: '#111212', padding: '2px 6px', fontSize: '0.7rem', fontWeight: 'bold' }}>AI HUB</span>
-                <span style={{ fontSize: '0.85rem', color: '#FFFFFF' }}>28 Concurrent AI Analytics with Spatial Zone Correlation</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', backgroundColor: '#141414', padding: '0.75rem 1rem', border: '1px solid #282828' }}>
+                <span style={{ backgroundColor: '#F0C75E', color: '#111111', padding: '2px 6px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '800' }}>03 AI</span>
+                <span style={{ fontSize: '0.88rem', color: '#FFFFFF' }}>28 Video Analytics & Spatial Rule Correlation</span>
               </div>
 
-              <div style={{ textAlign: 'center', color: '#4ADE80' }}>↓ Instant Alarm Dispatch & Incident Logging</div>
+              <div style={{ textAlign: 'center', color: '#10B981', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>↓ Instant Alarm Verification</div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#18191a', padding: '0.75rem', border: '1px solid #333638' }}>
-                <span style={{ background: '#4ADE80', color: '#111212', padding: '2px 6px', fontSize: '0.7rem', fontWeight: 'bold' }}>DISPATCH</span>
-                <span style={{ fontSize: '0.85rem', color: '#FFFFFF' }}>Command Console Video Wall & Field Patrol Escalation</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', backgroundColor: '#141414', padding: '0.75rem 1rem', border: '1px solid #282828' }}>
+                <span style={{ backgroundColor: '#10B981', color: '#111111', padding: '2px 6px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '800' }}>04 DISPATCH</span>
+                <span style={{ fontSize: '0.88rem', color: '#FFFFFF' }}>Command Room Console & Patrol Escalation</span>
               </div>
             </div>
           </div>

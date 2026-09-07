@@ -1,102 +1,146 @@
 import React, { useState } from 'react';
-import ChapterHeader from './ChapterHeader';
 import AnalyticsItem from './AnalyticsItem';
 import { analyticsData } from '../data/analyticsData';
-import { Filter, Eye, Cpu, CheckCircle } from 'lucide-react';
+import { Filter, Layers, CheckCircle } from 'lucide-react';
 
 const CHAPTERS = [
   {
     id: 1,
     chapterNum: "01",
-    title: "BIOMETRIC & FACIAL INTELLIGENCE",
-    subtitle: "Facial detection pipelines and authorized biometric matching systems for critical infrastructure.",
-    range: [1, 2]
+    title: "DETECTION & RECOGNITION",
+    subtitle: "Real-time facial detection, statutory biometric authentication, human silhouette isolation, and motorized vehicle identification.",
+    range: [1, 5]
   },
   {
     id: 2,
     chapterNum: "02",
-    title: "OBJECT & TARGET CLASSIFICATION",
-    subtitle: "Deep-learning silhouette isolation and dual-branch categorization between humans and motorized vehicles.",
-    range: [3, 5]
+    title: "MOVEMENT & ZONES",
+    subtitle: "Directional virtual tripwires, multi-point polygon intrusion boundaries, restricted facility zones, and loitering dwell timers.",
+    range: [6, 9]
   },
   {
     id: 3,
     chapterNum: "03",
-    title: "PERIMETER DEFENSE & SPATIAL BOUNDARIES",
-    subtitle: "Virtual tripwires, multi-polygon perimeter intrusion sensors, restricted zone buffers, and loitering timers.",
-    range: [6, 9]
+    title: "COUNTING & CROWD",
+    subtitle: "Pedestrian gathering detection, spatial crowd density heat analysis, bi-directional portal tallies, and transit facility capacity tracking.",
+    range: [10, 13]
   },
   {
     id: 4,
     chapterNum: "04",
-    title: "CROWD DYNAMICS & DENSITY ANALYSIS",
-    subtitle: "Real-time gathering cluster detection, spatial heat density, bi-directional gate tallies, and facility capacity limits.",
-    range: [10, 13]
+    title: "OBJECT INTELLIGENCE & FLOW",
+    subtitle: "Directional flow vectors, wrong-way contraflow alerts, abandoned hazard detection, missing municipal property alerts, and scene integrity.",
+    range: [14, 19]
   },
   {
     id: 5,
     chapterNum: "05",
-    title: "FLOW, DIRECTION & TRANSIT ANALYSIS",
-    subtitle: "Vector trajectory tracking, wrong-way traffic contraflow alerts, and transit corridor surveillance.",
-    range: [14, 15]
+    title: "CAMERA HEALTH & INTEGRITY",
+    subtitle: "Automated tamper alarms, sudden signal loss triage, lens defocus diagnostics, and physical camera obstruction sensors.",
+    range: [20, 23]
   },
   {
     id: 6,
     chapterNum: "06",
-    title: "PHYSICAL OBJECT SURVEILLANCE & INTEGRITY",
-    subtitle: "Unattended hazard detection, missing municipal property alerts, anti-theft triggers, and camera tampering defense.",
-    range: [16, 20]
+    title: "PERIMETER DEFENSE & SAFETY",
+    subtitle: "Multi-layered physical perimeter surveillance, sudden human fall detection, and industrial fire and smoke alerting.",
+    range: [24, 26]
   },
   {
     id: 7,
     chapterNum: "07",
-    title: "SITUATIONAL AWARENESS & ANOMALY DETECTION",
-    subtitle: "Thermal anomalies, acoustic spikes, PPE safety compliance, slip-and-fall alerts, and proactive threat triage.",
-    range: [21, 28]
+    title: "TRACKING & BEHAVIOUR",
+    subtitle: "Multi-camera pedestrian and vehicle trajectory tracking, and automated behavioural anomaly event correlation.",
+    range: [27, 28]
   }
 ];
 
-export default function AnalyticsSection({ onOpenVideo, onOpenFocus }) {
+export default function AnalyticsSection({ onOpenVideo }) {
   const [selectedCategory, setSelectedCategory] = useState("ALL");
 
-  // Unique categories
   const categories = ["ALL", ...Array.from(new Set(analyticsData.map(a => a.category)))];
 
-  const filteredData = selectedCategory === "ALL" 
-    ? analyticsData 
+  const filteredData = selectedCategory === "ALL"
+    ? analyticsData
     : analyticsData.filter(a => a.category === selectedCategory);
 
   return (
-    <section id="analytics" className="theme-black" style={{ padding: '5rem 0', borderTop: '4px solid #111212' }}>
-      <div className="editorial-container">
+    <section 
+      id="analytics" 
+      className="section-black"
+      style={{
+        padding: '6rem 0',
+        borderBottom: '3px solid #111111'
+      }}
+    >
+      <div className="container-editorial">
         
-        {/* Main Section Banner */}
-        <ChapterHeader 
-          number="03"
-          category="NEURAL VISION ENGINES"
-          title="AI VIDEO ANALYTICS SHOWCASE"
-          subtitle="28 production-grade computer vision models operating concurrently across Pune Parliamentary Constituency surveillance feeds."
-          theme="black"
-        />
+        {/* Section Header */}
+        <div style={{ maxWidth: '950px', marginBottom: '4rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <span 
+              style={{
+                backgroundColor: '#E14F71',
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                fontWeight: '800',
+                padding: '3px 8px',
+                border: '2px solid #111111'
+              }}
+            >
+              SECTION 04
+            </span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#888890', letterSpacing: '0.08em', fontWeight: '700' }}>
+              COMPUTER VISION CAPABILITIES
+            </span>
+          </div>
 
-        {/* Category Filter Pills */}
+          <h2 
+            className="headline-display"
+            style={{
+              fontSize: 'clamp(2.2rem, 5vw, 4.2rem)',
+              color: '#FFFFFF',
+              lineHeight: 1.0,
+              textTransform: 'uppercase',
+              margin: '0.5rem 0 1.25rem 0'
+            }}
+          >
+            AI VIDEO ANALYTICS <br />
+            <span style={{ color: '#F0C75E' }}>28 VIDEO INTELLIGENCE CAPABILITIES</span>
+          </h2>
+
+          <p 
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '1.15rem',
+              color: '#B0B0B5',
+              lineHeight: 1.6,
+              margin: 0
+            }}
+          >
+            Curated exhibition of 28 deep-learning video analytics models deployed across the Pune Parliamentary Constituency surveillance framework. Every capability is presented with its verified operational demonstration, algorithmic mechanism, and technical distinction.
+          </p>
+        </div>
+
+        {/* Filter Bar */}
         <div 
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
             flexWrap: 'wrap',
-            marginBottom: '3.5rem',
+            marginBottom: '4rem',
             padding: '1.25rem',
-            background: '#18191a',
-            border: '3px solid #333638',
+            backgroundColor: '#141414',
+            border: '3px solid #282828',
             boxShadow: '6px 6px 0px #000000',
-            borderRadius: '4px'
+            borderRadius: '2px'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginRight: '0.5rem', color: '#B4B7B9', fontSize: '0.8rem', fontWeight: 'bold' }}>
-            <Filter size={16} color="#E14F71" />
-            FILTER CATEGORY:
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginRight: '0.5rem', color: '#888890', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '700' }}>
+            <Filter size={15} color="#F0C75E" />
+            FILTER:
           </div>
 
           {categories.map((cat) => {
@@ -110,13 +154,13 @@ export default function AnalyticsSection({ onOpenVideo, onOpenFocus }) {
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 style={{
-                  fontFamily: 'Verdana, sans-serif',
-                  fontSize: '0.74rem',
-                  fontWeight: 'bold',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  fontWeight: '700',
                   padding: '6px 12px',
-                  background: isActive ? '#E14F71' : '#111212',
-                  color: isActive ? '#FFFFFF' : '#B4B7B9',
-                  border: isActive ? '2px solid #FFFFFF' : '2px solid #333638',
+                  backgroundColor: isActive ? '#F0C75E' : '#1E1E1E',
+                  color: isActive ? '#111111' : '#B0B0B5',
+                  border: isActive ? '2px solid #FFFFFF' : '2px solid #333333',
                   boxShadow: isActive ? '3px 3px 0px #000000' : 'none',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
@@ -129,10 +173,10 @@ export default function AnalyticsSection({ onOpenVideo, onOpenFocus }) {
                 <span>{cat.toUpperCase()}</span>
                 <span 
                   style={{
-                    background: isActive ? '#111212' : '#242628',
-                    color: isActive ? '#F0C75E' : '#8C9093',
+                    backgroundColor: isActive ? '#111111' : '#111111',
+                    color: isActive ? '#F0C75E' : '#888890',
                     padding: '1px 5px',
-                    fontSize: '0.68rem',
+                    fontSize: '0.65rem',
                     borderRadius: '2px'
                   }}
                 >
@@ -143,32 +187,31 @@ export default function AnalyticsSection({ onOpenVideo, onOpenFocus }) {
           })}
         </div>
 
-        {/* When filtered, show direct items grid */}
+        {/* Display: Filtered vs 7 Chapters */}
         {selectedCategory !== "ALL" ? (
           <div>
             <div style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 'bold' }}>
-                Showing {filteredData.length} analytics for: <span style={{ color: '#E14F71' }}>{selectedCategory}</span>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: '#FFFFFF', fontWeight: '700' }}>
+                SHOWING {filteredData.length} ANALYTICS FOR: <span style={{ color: '#F0C75E' }}>{selectedCategory.toUpperCase()}</span>
               </div>
-              <button 
+              <button
                 onClick={() => setSelectedCategory("ALL")}
-                style={{ background: 'transparent', border: 'none', color: '#F0C75E', cursor: 'pointer', fontSize: '0.8rem', textDecoration: 'underline' }}
+                style={{ background: 'transparent', border: 'none', color: '#E14F71', cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textDecoration: 'underline' }}
               >
-                Reset to All Chapters
+                RESET TO ALL 7 CHAPTERS
               </button>
             </div>
+
             {filteredData.map((item, idx) => (
-              <AnalyticsItem 
-                key={item.id} 
-                item={item} 
+              <AnalyticsItem
+                key={item.id}
+                item={item}
                 index={idx}
-                onOpenVideo={onOpenVideo} 
-                onOpenFocus={onOpenFocus} 
+                onOpenVideo={onOpenVideo}
               />
             ))}
           </div>
         ) : (
-          /* When ALL is selected, present Chapter by Chapter */
           <div>
             {CHAPTERS.map((chap) => {
               const chapterItems = analyticsData.filter(
@@ -176,42 +219,62 @@ export default function AnalyticsSection({ onOpenVideo, onOpenFocus }) {
               );
 
               return (
-                <div key={chap.id} style={{ marginBottom: '5rem' }}>
-                  {/* Sub-Chapter Divider */}
+                <div key={chap.id} style={{ marginBottom: '6rem' }}>
+                  
+                  {/* Chapter Intro Header */}
                   <div 
                     style={{
-                      borderBottom: '3px solid #333638',
-                      paddingBottom: '1rem',
-                      marginBottom: '2rem',
+                      borderBottom: '3px solid #2E2E2E',
+                      paddingBottom: '1.25rem',
+                      marginBottom: '3rem',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '0.35rem'
+                      gap: '0.5rem'
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ background: '#E14F71', color: '#FFFFFF', padding: '2px 8px', fontSize: '0.75rem', fontWeight: 'bold' }}>
+                      <span 
+                        style={{
+                          backgroundColor: '#E14F71',
+                          color: '#FFFFFF',
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.72rem',
+                          fontWeight: '800',
+                          padding: '2px 8px'
+                        }}
+                      >
                         CHAPTER {chap.chapterNum}
                       </span>
-                      <span style={{ color: '#8C9093', fontSize: '0.8rem', fontWeight: 'bold' }}>
-                        ITEMS {String(chap.range[0]).padStart(2, '0')} - {String(chap.range[1]).padStart(2, '0')}
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#888890', fontWeight: '700' }}>
+                        ITEMS {String(chap.range[0]).padStart(2, '0')} — {String(chap.range[1]).padStart(2, '0')}
                       </span>
                     </div>
-                    <h3 style={{ fontSize: '1.4rem', color: '#FFFFFF', fontWeight: 'bold', margin: '0.2rem 0' }}>
+
+                    <h3 
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)',
+                        fontWeight: '800',
+                        color: '#FFFFFF',
+                        lineHeight: 1.1,
+                        margin: '0.25rem 0'
+                      }}
+                    >
                       {chap.title}
                     </h3>
-                    <p style={{ fontSize: '0.88rem', color: '#B4B7B9', margin: 0 }}>
+
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: '#B0B0B5', margin: 0, maxWidth: '850px' }}>
                       {chap.subtitle}
                     </p>
                   </div>
 
-                  {/* Chapter Items List */}
+                  {/* Chapter Items with Varied Layouts */}
                   {chapterItems.map((item, idx) => (
-                    <AnalyticsItem 
-                      key={item.id} 
-                      item={item} 
+                    <AnalyticsItem
+                      key={item.id}
+                      item={item}
                       index={idx}
-                      onOpenVideo={onOpenVideo} 
-                      onOpenFocus={onOpenFocus} 
+                      onOpenVideo={onOpenVideo}
                     />
                   ))}
                 </div>

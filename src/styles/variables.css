@@ -1,64 +1,59 @@
 /* =========================================================================
-   EDITORIAL COLOR SYSTEM & DESIGN TOKENS
-   Inspired by aihackerscollective.com (Black/White high contrast, Gold & Pink accents)
+   EDITORIAL DESIGN SYSTEM TOKENS
+   Inspired by aihackerscollective.com (High-contrast Brutalist / Editorial)
    ========================================================================= */
 
 :root {
-  /* Strict Typography Stack */
-  --font-primary: Verdana, Geneva, sans-serif;
-  --font-mono: 'Courier New', Courier, monospace;
+  /* Typography Stack */
+  --font-display: 'Space Grotesk', -apple-system, sans-serif;
+  --font-headline: 'Syne', 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
 
-  /* Primary Palette */
-  --color-black: #0A0A0B;
-  --color-true-black: #000000;
-  --color-dark-card: #111214;
-  --color-dark-border: rgba(255, 255, 255, 0.16);
-  --color-dark-subtle: rgba(255, 255, 255, 0.08);
+  /* Strict Contrast Palette */
+  --color-black: #0A0A0A;
+  --color-dark-surface: #141414;
+  --color-dark-card: #191919;
+  --color-dark-card-alt: #1F1F1F;
+  --color-dark-border: #2A2A2A;
+  --color-dark-border-strong: #404040;
 
   --color-white: #FFFFFF;
-  --color-offwhite: #F4F4F6;
-  --color-light-card: #FFFFFF;
-  --color-light-border: #111212;
-  --color-light-subtle: rgba(17, 18, 18, 0.08);
+  --color-offwhite: #F7F7F8;
+  --color-light-surface: #F0F0F2;
+  --color-light-border: #111111;
+  --color-light-border-subtle: #D8D8DC;
 
   /* Accents */
   --accent-gold: #F0C75E;
-  --accent-gold-hover: #F5D37E;
-  --accent-gold-bg: rgba(240, 199, 94, 0.12);
-  --accent-gold-border: rgba(240, 199, 94, 0.4);
-
+  --accent-gold-dark: #D4A836;
   --accent-pink: #E14F71;
-  --accent-pink-bg: rgba(225, 79, 113, 0.12);
-  --accent-pink-border: rgba(225, 79, 113, 0.4);
-
-  --accent-cyan: #00E5FF;
-  --accent-green: #10B981;
+  --accent-pink-dark: #C23556;
 
   /* Text Colors */
   --text-dark-primary: #FFFFFF;
-  --text-dark-secondary: #A0A5B5;
-  --text-dark-muted: #6B7280;
+  --text-dark-secondary: #B0B0B5;
+  --text-dark-muted: #737378;
 
-  --text-light-primary: #111212;
-  --text-light-secondary: #4B5563;
-  --text-light-muted: #9CA3AF;
+  --text-light-primary: #111111;
+  --text-light-secondary: #4A4A50;
+  --text-light-muted: #85858E;
 
   /* Physical Framing & Hard Offset Shadows */
-  --border-thick: 3px solid #111212;
-  --border-thick-dark: 2px solid rgba(255, 255, 255, 0.2);
-  --border-gold: 2px solid #F0C75E;
+  --border-thick: 3px solid #111111;
+  --border-thick-dark: 3px solid #2E2E2E;
+  --border-thick-light: 3px solid #FFFFFF;
 
-  --shadow-hard-light: 8px 8px 0 rgba(17, 18, 18, 0.35);
-  --shadow-hard-card: 6px 6px 0 #111212;
-  --shadow-hard-hover: 10px 10px 0 #111212;
-  --shadow-hard-dark: 8px 8px 0 rgba(0, 0, 0, 0.6);
-  --shadow-gold-hover: 6px 6px 0 #F0C75E;
+  --shadow-offset-card: 8px 8px 0px #111111;
+  --shadow-offset-card-dark: 8px 8px 0px #000000;
+  --shadow-offset-sm: 4px 4px 0px #111111;
+  --shadow-offset-sm-dark: 4px 4px 0px #000000;
+  --shadow-offset-lg: 12px 12px 0px #111111;
+  --shadow-offset-gold: 6px 6px 0px #F0C75E;
+  --shadow-offset-pink: 6px 6px 0px #E14F71;
 
-  /* Spacing & Radii */
-  --radius-sharp: 4px;
-  --radius-card: 6px;
-  --radius-badge: 4px;
-  --radius-pill: 999px;
-
-  --max-content-width: 1280px;
+  /* Geometry */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
 }

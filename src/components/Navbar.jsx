@@ -1,284 +1,197 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Menu, X, Shield, Terminal, Layers, Cpu, Eye } from 'lucide-react';
+import { Search, Monitor, Menu, X, Play } from 'lucide-react';
 
-export default function Navbar({ onOpenSearch }) {
-  const [isScrolled, setIsScrolled] = useState(false);
+export default function Navbar({ onOpenSearch, onStartPresentation }) {
+  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 40);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Overview', href: '#hero', icon: Shield },
-    { label: 'The System', href: '#glance', icon: Layers },
-    { label: 'AI Analytics', href: '#analytics', icon: Eye },
-    { label: 'Live Feed', href: '#live-detection', icon: Terminal },
-    { label: 'Hardware', href: '#hardware', icon: Cpu },
-    { label: 'Architecture', href: '#architecture', icon: Layers },
-    { label: 'Status', href: '#status', icon: Terminal },
-  ];
-
   return (
-    <>
-      <header
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 90,
-          backgroundColor: isScrolled ? 'rgba(10, 10, 11, 0.94)' : 'rgba(10, 10, 11, 0.75)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-          transition: 'all 0.25s ease',
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 'var(--max-content-width)',
-            margin: '0 auto',
-            padding: '14px 24px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '16px',
-          }}
-        >
-          {/* Brand Mark */}
-          <a
-            href="#hero"
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        backgroundColor: scrolled ? '#0A0A0A' : '#0A0A0A',
+        borderBottom: '3px solid #111111',
+        boxShadow: scrolled ? '0 4px 0 rgba(0,0,0,0.8)' : 'none',
+        transition: 'all 0.2s ease'
+      }}
+    >
+      <div className="container-editorial" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '70px' }}>
+        
+        {/* Logo / Brand Stamp */}
+        <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div 
             style={{
+              backgroundColor: '#F0C75E',
+              color: '#111111',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: '800',
+              fontSize: '0.85rem',
+              padding: '4px 8px',
+              border: '2px solid #111111',
+              boxShadow: '3px 3px 0px #111111',
+              letterSpacing: '0.05em'
+            }}
+          >
+            PMC // 04
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: '700', fontSize: '1rem', color: '#FFFFFF', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
+              PUNE SURVEILLANCE
+            </span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#888890', letterSpacing: '0.06em' }}>
+              PARLIAMENTARY CONSTITUENCY
+            </span>
+          </div>
+        </a>
+
+        {/* Desktop Nav Links */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }} className="desktop-nav-links">
+          <a href="#stats" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
+            01 THE SYSTEM
+          </a>
+          <a href="#analytics" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
+            02 AI ANALYTICS (28)
+          </a>
+          <a href="#hardware" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
+            03 HARDWARE (26)
+          </a>
+          <a href="#architecture" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
+            04 ARCHITECTURE
+          </a>
+        </div>
+
+        {/* Right Actions: Search & Presentation Button */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          
+          {/* Quick Search Button */}
+          <button
+            onClick={onOpenSearch}
+            style={{
+              backgroundColor: '#191919',
+              color: '#B0B0B5',
+              border: '2px solid #333333',
+              boxShadow: '3px 3px 0px #000000',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.75rem',
+              fontWeight: '700',
+              padding: '6px 12px',
+              cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
-              textDecoration: 'none',
-              color: '#FFFFFF',
+              gap: '6px'
             }}
+            title="Search all 54 items (Ctrl+K or /)"
           >
-            <div
-              style={{
-                width: '34px',
-                height: '34px',
-                backgroundColor: '#111214',
-                border: '2px solid #F0C75E',
-                borderRadius: '4px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '2px 2px 0 #F0C75E',
-              }}
-            >
-              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '0.85rem', color: '#F0C75E' }}>
-                P
-              </span>
-            </div>
-            <div>
-              <div style={{ fontWeight: 800, fontSize: '0.90rem', letterSpacing: '-0.01em', textTransform: 'uppercase' }}>
-                PMC SURVEILLANCE
-              </div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--text-dark-muted)', letterSpacing: '0.06em' }}>
-                PUNE CONSTITUENCY
-              </div>
-            </div>
-          </a>
+            <Search size={14} color="#F0C75E" />
+            <span className="search-text-hide">SEARCH</span>
+            <kbd style={{ backgroundColor: '#2B2B2B', color: '#F0C75E', padding: '1px 5px', fontSize: '0.65rem', borderRadius: '2px' }}>/</kbd>
+          </button>
 
-          {/* Desktop Navigation Links with Dividers */}
-          <nav
+          {/* Presentation Mode Button */}
+          <button
+            onClick={onStartPresentation}
             style={{
-              display: 'none',
+              backgroundColor: '#F0C75E',
+              color: '#111111',
+              border: '2px solid #111111',
+              boxShadow: '3px 3px 0px #111111',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.75rem',
+              fontWeight: '800',
+              padding: '6px 14px',
+              cursor: 'pointer',
+              display: 'flex',
               alignItems: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.14)',
-              borderRadius: '6px',
-              overflow: 'hidden',
+              gap: '6px',
+              letterSpacing: '0.04em',
+              transition: 'transform 0.15s ease'
             }}
-            className="desktop-nav-bar"
+            title="Launch Full-Screen Presentation Mode"
           >
-            {navLinks.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '8px 14px',
-                    fontSize: '0.74rem',
-                    fontWeight: 600,
-                    color: 'rgba(255, 255, 255, 0.78)',
-                    textDecoration: 'none',
-                    letterSpacing: '0.02em',
-                    textTransform: 'uppercase',
-                    borderRight: idx < navLinks.length - 1 ? '1px solid rgba(255, 255, 255, 0.12)' : 'none',
-                    transition: 'all 0.15s ease',
-                    whiteSpace: 'nowrap',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#F0C75E';
-                    e.currentTarget.style.backgroundColor = 'rgba(240, 199, 94, 0.08)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'rgba(255, 255, 255, 0.78)';
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                  }}
-                >
-                  <Icon size={13} />
-                  {item.label}
-                </a>
-              );
-            })}
-          </nav>
+            <Monitor size={15} />
+            <span>PRESENTATION</span>
+          </button>
 
-          {/* Right Action Area */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {/* Search Trigger */}
-            <button
-              onClick={onOpenSearch}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                color: '#FFFFFF',
-                padding: '6px 12px',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                transition: 'all 0.15s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#F0C75E';
-                e.currentTarget.style.color = '#F0C75E';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                e.currentTarget.style.color = '#FFFFFF';
-              }}
-              title="Search AI Capabilities & Hardware (Ctrl+K)"
-            >
-              <Search size={14} />
-              <span className="search-label-text">Search</span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.65rem',
-                  backgroundColor: 'rgba(255, 255, 255, 0.12)',
-                  padding: '2px 6px',
-                  borderRadius: '3px',
-                  color: 'var(--text-dark-secondary)',
-                }}
-              >
-                ⌘K
-              </span>
-            </button>
-
-            {/* Version 4.0 Badge */}
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                backgroundColor: '#111214',
-                border: '1.5px solid #F0C75E',
-                color: '#F0C75E',
-                padding: '4px 10px',
-                borderRadius: '4px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.70rem',
-                fontWeight: 700,
-                letterSpacing: '0.04em',
-                boxShadow: '2px 2px 0 #F0C75E',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <span className="pulse-dot-gold" style={{ width: '6px', height: '6px' }}></span>
-              VERSION 4.0
-            </div>
-
-            {/* Mobile Hamburger Toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{
-                display: 'none',
-                backgroundColor: '#16171A',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                color: '#FFFFFF',
-                padding: '8px',
-                borderRadius: '6px',
-                cursor: 'pointer',
-              }}
-              className="mobile-menu-btn"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
+          {/* Mobile Menu Trigger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              backgroundColor: '#191919',
+              color: '#FFFFFF',
+              border: '2px solid #333333',
+              padding: '6px',
+              cursor: 'pointer',
+              display: 'none'
+            }}
+            className="mobile-menu-trigger"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-      </header>
+      </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div
+        <div 
           style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 85,
-            backgroundColor: 'rgba(10, 10, 11, 0.98)',
-            padding: '90px 24px 36px',
+            backgroundColor: '#0A0A0A',
+            borderTop: '2px solid #222222',
+            padding: '1.5rem',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
+            gap: '1.25rem'
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {navLinks.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  display: 'block',
-                  padding: '14px 18px',
-                  backgroundColor: '#16171A',
-                  border: '1.5px solid rgba(255, 255, 255, 0.15)',
-                  borderRadius: '6px',
-                  color: '#FFFFFF',
-                  textDecoration: 'none',
-                  fontSize: '0.90rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--text-dark-muted)' }}>
-            PMC CCTV SURVEILLANCE &bull; VERSION 4.0
-          </div>
+          <a 
+            href="#stats" 
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
+          >
+            01 THE SYSTEM AT A GLANCE
+          </a>
+          <a 
+            href="#analytics" 
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
+          >
+            02 AI VIDEO ANALYTICS (28)
+          </a>
+          <a 
+            href="#hardware" 
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
+          >
+            03 HARDWARE INFRASTRUCTURE (26)
+          </a>
+          <a 
+            href="#architecture" 
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
+          >
+            04 SYSTEM ARCHITECTURE
+          </a>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onStartPresentation();
+            }}
+            className="btn-editorial-primary"
+            style={{ width: '100%', justifyContent: 'center' }}
+          >
+            <Monitor size={16} /> ENTER PRESENTATION MODE
+          </button>
         </div>
       )}
-
-      <style>{`
-        @media (min-width: 960px) {
-          .desktop-nav-bar { display: flex !important; }
-        }
-        @media (max-width: 959px) {
-          .mobile-menu-btn { display: flex !important; }
-          .search-label-text { display: none; }
-        }
-      `}</style>
-    </>
+    </nav>
   );
 }

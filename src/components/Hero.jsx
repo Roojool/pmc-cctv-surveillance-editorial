@@ -1,206 +1,209 @@
 import React from 'react';
-import { ArrowDown, Shield, Terminal, CheckCircle2, Eye, Cpu, Activity } from 'lucide-react';
+import { ArrowDown, Monitor, ShieldCheck, Grid } from 'lucide-react';
 
-export default function Hero({ onOpenScan }) {
+export default function Hero({ onStartPresentation }) {
   return (
-    <section
-      id="hero"
-      className="theme-black"
+    <header 
+      id="hero" 
+      className="section-black"
       style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        paddingTop: '110px',
-        paddingBottom: '60px',
-        borderBottom: '2px solid #111212',
+        padding: '5rem 0 6rem 0',
         position: 'relative',
         overflow: 'hidden',
+        borderBottom: '3px solid #111111'
       }}
     >
-      {/* Background Subtle Line Grid */}
-      <div
+      {/* Background Subtle Graphic Grid lines */}
+      <div 
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage:
-            'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundSize: '4rem 4rem',
           pointerEvents: 'none',
+          opacity: 0.8
         }}
       />
 
-      <div className="section-container" style={{ textAlign: 'center', maxWidth: '1080px' }}>
-        {/* Metadata Badges */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: '8px',
-            marginBottom: '28px',
-          }}
-        >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: '#16171A',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              color: '#FFFFFF',
-              padding: '6px 14px',
-              borderRadius: '999px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.72rem',
-              fontWeight: 700,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-            }}
-          >
-            <span className="pulse-dot" style={{ width: '6px', height: '6px' }}></span>
-            MUNICIPAL SURVEILLANCE ECOSYSTEM
+      <div className="container-editorial" style={{ position: 'relative', zIndex: 1 }}>
+        
+        {/* Top Editorial Index Stamp */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span 
+              style={{
+                backgroundColor: '#E14F71',
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                fontWeight: '800',
+                padding: '3px 10px',
+                border: '2px solid #111111',
+                boxShadow: '3px 3px 0px #111111'
+              }}
+            >
+              SECTION 01
+            </span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#888890', letterSpacing: '0.08em' }}>
+              EXECUTIVE BRIEFING DOSSIER
+            </span>
           </div>
 
-          <div
+          <div 
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: '#16171A',
-              border: '1px solid rgba(240, 199, 94, 0.3)',
-              color: '#F0C75E',
-              padding: '6px 14px',
-              borderRadius: '999px',
+              backgroundColor: '#191919',
+              border: '2px solid #333333',
+              padding: '4px 12px',
               fontFamily: 'var(--font-mono)',
               fontSize: '0.72rem',
-              fontWeight: 700,
-              letterSpacing: '0.06em',
+              color: '#F0C75E',
+              fontWeight: '700'
+            }}
+          >
+            VERSION 4.0 // EDITORIAL RELEASE
+          </div>
+        </div>
+
+        {/* Oversized Editorial Typography Composition */}
+        <div style={{ maxWidth: '1200px', marginBottom: '3.5rem' }}>
+          
+          <div 
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+              fontWeight: '800',
+              color: '#F0C75E',
+              letterSpacing: '-0.02em',
+              marginBottom: '0.5rem'
+            }}
+          >
+            PMC
+          </div>
+
+          <h1 
+            className="headline-display"
+            style={{
+              fontSize: 'clamp(2.4rem, 6.5vw, 5.8rem)',
+              color: '#FFFFFF',
+              lineHeight: 0.95,
               textTransform: 'uppercase',
+              margin: '0.25rem 0 1rem 0'
+            }}
+          >
+            CCTV SURVEILLANCE <br />
+            <span style={{ color: '#E14F71' }}>SYSTEM</span> (AI BASED)
+          </h1>
+
+          <div 
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(1.2rem, 3vw, 2.4rem)',
+              fontWeight: '700',
+              color: '#FFFFFF',
+              letterSpacing: '-0.01em',
+              marginTop: '1rem',
+              textTransform: 'uppercase'
             }}
           >
             PUNE PARLIAMENTARY CONSTITUENCY
           </div>
-        </div>
 
-        {/* Display Typography */}
-        <div style={{ marginBottom: '18px' }}>
-          <div
+          <p 
             style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '1.1rem',
-              fontWeight: 800,
-              color: '#F0C75E',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              marginBottom: '12px',
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(1rem, 1.6vw, 1.25rem)',
+              color: '#B0B0B5',
+              maxWidth: '820px',
+              lineHeight: 1.6,
+              margin: '1.5rem 0 0 0'
             }}
           >
-            PMC &bull; 2026 EDITION
-          </div>
-
-          <h1 className="display-title-hero" style={{ maxWidth: '980px', margin: '0 auto' }}>
-            CCTV SURVEILLANCE SYSTEM
-            <span style={{ display: 'block', color: '#F0C75E', fontSize: '0.85em', marginTop: '4px' }}>
-              (AI BASED)
-            </span>
-          </h1>
+            Pune Municipal Corporation Surveillance Infrastructure. A comprehensive exhibition of 28 deep-neural video analytics and 26 high-durability hardware components engineered for public security, automated incident verification, and municipal resilience.
+          </p>
         </div>
 
-        {/* Subtitle & Lead Paragraph */}
-        <p
-          style={{
-            fontFamily: 'var(--font-primary)',
-            fontSize: 'clamp(1.05rem, 2vw, 1.35rem)',
-            fontWeight: 700,
-            color: '#FFFFFF',
-            textTransform: 'uppercase',
-            letterSpacing: '0.02em',
-            margin: '0 auto 16px',
-          }}
-        >
-          Pune Municipal Corporation Surveillance Infrastructure
-        </p>
-
-        <p
-          style={{
-            fontFamily: 'var(--font-primary)',
-            fontSize: '0.96rem',
-            lineHeight: 1.65,
-            color: 'var(--text-dark-secondary)',
-            maxWidth: '740px',
-            margin: '0 auto 36px',
-          }}
-        >
-          An enterprise-grade municipal video analytics and physical hardware platform delivering real-time situational awareness, multi-zone security monitoring, and automated event detection across Pune Parliamentary Constituency.
-        </p>
-
-        {/* Hero Actions */}
-        <div
+        {/* Action Buttons & Minimal Metadata Row */}
+        <div 
           style={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: '14px',
-            marginBottom: '60px',
+            flexDirection: 'column',
+            gap: '2.5rem',
+            borderTop: '2px solid #242424',
+            paddingTop: '2.5rem'
           }}
         >
-          <a href="#glance" className="btn-editorial-primary btn-editorial-gold" style={{ textDecoration: 'none' }}>
-            Explore System <ArrowDown size={16} />
-          </a>
+          {/* CTA Row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
+            <button
+              onClick={onStartPresentation}
+              className="btn-editorial-primary"
+              style={{ padding: '1rem 2rem', fontSize: '0.9rem' }}
+            >
+              <Monitor size={18} />
+              LAUNCH PRESENTATION MODE
+            </button>
 
-          <a href="#status" onClick={onOpenScan} className="btn-editorial-primary btn-editorial-dark" style={{ textDecoration: 'none' }}>
-            <Terminal size={15} color="#F0C75E" /> Diagnostic Telemetry Scan
-          </a>
+            <a
+              href="#stats"
+              className="btn-editorial-dark"
+              style={{ padding: '1rem 1.75rem', fontSize: '0.9rem' }}
+            >
+              <ArrowDown size={18} />
+              EXPLORE THE SYSTEM
+            </a>
+          </div>
+
+          {/* Minimal Metadata Strip */}
+          <div 
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gap: '1.5rem',
+              backgroundColor: '#141414',
+              border: '3px solid #282828',
+              boxShadow: '6px 6px 0px #000000',
+              padding: '1.5rem 2rem'
+            }}
+          >
+            <div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#888890', letterSpacing: '0.06em' }}>
+                AI VIDEO ANALYTICS
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '800', color: '#FFFFFF', marginTop: '4px' }}>
+                28 CAPABILITIES
+              </div>
+              <div style={{ fontSize: '0.8rem', color: '#B0B0B5', marginTop: '2px' }}>
+                7 Core Operational Chapters
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#888890', letterSpacing: '0.06em' }}>
+                HARDWARE INFRASTRUCTURE
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '800', color: '#F0C75E', marginTop: '4px' }}>
+                26 COMPONENTS
+              </div>
+              <div style={{ fontSize: '0.8rem', color: '#B0B0B5', marginTop: '2px' }}>
+                5 Physical Engineering Tiers
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#888890', letterSpacing: '0.06em' }}>
+                TOTAL SPECIFICATION
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '800', color: '#E14F71', marginTop: '4px' }}>
+                54 ELEMENTS
+              </div>
+              <div style={{ fontSize: '0.8rem', color: '#B0B0B5', marginTop: '2px' }}>
+                Unbranded Enterprise Standard
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom Metric Bar */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '12px',
-            maxWidth: '960px',
-            margin: '0 auto',
-            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-            paddingTop: '28px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <Eye size={18} color="#F0C75E" />
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 800, color: '#FFFFFF' }}>28</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--text-dark-muted)', textTransform: 'uppercase' }}>AI Video Analytics</div>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <Cpu size={18} color="#F0C75E" />
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 800, color: '#FFFFFF' }}>26</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--text-dark-muted)', textTransform: 'uppercase' }}>Hardware Components</div>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <CheckCircle2 size={18} color="#F0C75E" />
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 800, color: '#FFFFFF' }}>54</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--text-dark-muted)', textTransform: 'uppercase' }}>Total Elements</div>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <Activity size={18} color="#E14F71" />
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 800, color: '#FFFFFF' }}>100%</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--text-dark-muted)', textTransform: 'uppercase' }}>Unbranded Specs</div>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
+    </header>
   );
 }

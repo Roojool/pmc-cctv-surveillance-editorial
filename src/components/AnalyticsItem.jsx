@@ -1,342 +1,422 @@
 import React from 'react';
-import { Play, Info, ExternalLink, ShieldCheck, Tag } from 'lucide-react';
+import { Play, ShieldCheck, ArrowRight, Eye } from 'lucide-react';
 
-export default function AnalyticsItem({ item, index, onOpenVideo, onOpenFocus }) {
-  const isAlternate = index % 2 === 1;
+export default function AnalyticsItem({ item, index, onOpenVideo }) {
   const itemNumber = String(item.id).padStart(2, '0');
+  
+  // Choose layout variation based on index
+  const layoutVariant = index % 5; // 0: A, 1: B, 2: C, 3: D, 4: E
 
-  return (
-    <div 
-      id={`ai-${item.id}`}
-      className="editorial-item-card"
+  // Common Media Container
+  const renderMediaBox = (aspect = '16 / 9', extraStyles = {}) => (
+    <div
+      onClick={() => onOpenVideo(item)}
+      className="editorial-media-frame"
       style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-        gap: '2rem',
-        background: '#18191a',
-        border: '3px solid #333638',
-        boxShadow: '8px 8px 0px #000000',
-        padding: '2rem',
-        marginBottom: '2.5rem',
-        borderRadius: '4px',
-        alignItems: 'center'
+        position: 'relative',
+        aspectRatio: aspect,
+        backgroundColor: '#000000',
+        border: '3px solid #111111',
+        boxShadow: '6px 6px 0px #111111',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        borderRadius: '2px',
+        ...extraStyles
       }}
+      title={`Play demonstration for ${item.name}`}
     >
-      {/* Visual / Video Column */}
-      <div 
-        style={{ 
-          order: isAlternate ? 2 : 1,
+      <img
+        src={item.thumbnail_url}
+        alt={`Demonstration of ${item.name}`}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block',
+          transition: 'transform 0.3s ease'
+        }}
+        loading="lazy"
+        onError={(e) => {
+          if (!e.target.src.includes('hqdefault.jpg')) {
+            e.target.src = `https://i.ytimg.com/vi/${item.video_id}/hqdefault.jpg`;
+          }
+        }}
+      />
+
+      {/* Play Overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.75rem'
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'background-color 0.2s ease'
         }}
       >
-        <div 
-          onClick={() => onOpenVideo(item)}
+        <div className="media-play-icon">
+          <Play size={24} fill="currentColor" style={{ marginLeft: '3px' }} />
+        </div>
+        <span
           style={{
-            position: 'relative',
-            aspectRatio: '16 / 9',
-            background: '#090a0a',
-            border: '3px solid #111212',
-            boxShadow: '6px 6px 0px #000000',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            borderRadius: '2px'
+            marginTop: '10px',
+            backgroundColor: '#111111',
+            color: '#F0C75E',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.72rem',
+            fontWeight: '700',
+            padding: '4px 10px',
+            border: '2px solid #282828',
+            letterSpacing: '0.06em'
           }}
-          className="editorial-video-thumb-container"
-          title={`Watch demonstration for ${item.name}`}
         >
-          <img 
-            src={item.thumbnail_url} 
-            alt={`Demonstration of ${item.name}`}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              display: 'block',
-              transition: 'transform 0.3s ease, filter 0.3s ease'
-            }}
-            loading="lazy"
-            onError={(e) => {
-              // fallback to hqdefault if high-res fails
-              if (!e.target.src.includes('hqdefault.jpg')) {
-                e.target.src = `https://i.ytimg.com/vi/${item.video_id}/hqdefault.jpg`;
-              }
-            }}
-          />
-          
-          {/* Subtle Scanline Overlay */}
-          <div 
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%)',
-              backgroundSize: '100% 4px',
-              pointerEvents: 'none',
-              opacity: 0.6
-            }} 
-          />
-
-          {/* Top Live Badge */}
-          <div 
-            style={{
-              position: 'absolute',
-              top: '10px',
-              left: '10px',
-              background: '#111212',
-              color: '#FFFFFF',
-              border: '2px solid #333638',
-              padding: '2px 8px',
-              fontSize: '0.7rem',
-              fontWeight: 'bold',
-              fontFamily: 'Verdana, sans-serif',
-              letterSpacing: '0.08em',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}
-          >
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#E14F71', display: 'inline-block' }}></span>
-            FEED #{itemNumber}
-          </div>
-
-          {/* Central Play Button */}
-          <div 
-            className="play-overlay-btn"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'rgba(0, 0, 0, 0.35)',
-              transition: 'background 0.2s ease'
-            }}
-          >
-            <div 
-              style={{
-                width: '64px',
-                height: '64px',
-                background: '#E14F71',
-                color: '#FFFFFF',
-                border: '3px solid #111212',
-                boxShadow: '4px 4px 0px #111212',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'transform 0.2s ease, background 0.2s ease'
-              }}
-              className="play-badge-circle"
-            >
-              <Play size={28} fill="#FFFFFF" style={{ marginLeft: '4px' }} />
-            </div>
-            <span 
-              style={{
-                marginTop: '10px',
-                background: '#111212',
-                color: '#F0C75E',
-                padding: '4px 10px',
-                fontSize: '0.72rem',
-                fontWeight: 'bold',
-                fontFamily: 'Verdana, sans-serif',
-                letterSpacing: '0.06em',
-                border: '2px solid #333638'
-              }}
-            >
-              CLICK TO WATCH DEMO
-            </span>
-          </div>
-
-          {/* Video Duration / Author tag */}
-          <div 
-            style={{
-              position: 'absolute',
-              bottom: '10px',
-              right: '10px',
-              background: 'rgba(17, 18, 18, 0.9)',
-              color: '#B4B7B9',
-              border: '1px solid #444749',
-              padding: '2px 6px',
-              fontSize: '0.68rem',
-              fontFamily: 'Verdana, sans-serif'
-            }}
-          >
-            {item.video_author}
-          </div>
-        </div>
-
-        {/* Action button bar */}
-        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'space-between', alignItems: 'center' }}>
-          <button
-            onClick={() => onOpenVideo(item)}
-            className="btn-editorial-pink"
-            style={{
-              flex: 1,
-              padding: '0.6rem 1rem',
-              fontSize: '0.78rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px'
-            }}
-          >
-            <Play size={15} fill="currentColor" />
-            PLAY DEMO VIDEO
-          </button>
-          
-          <button
-            onClick={() => onOpenFocus(item)}
-            className="btn-editorial-dark"
-            style={{
-              padding: '0.6rem 1rem',
-              fontSize: '0.78rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              background: '#242628',
-              color: '#FFFFFF'
-            }}
-            title="Inspect deep architecture & use case"
-          >
-            <Info size={15} />
-            SPEC
-          </button>
-        </div>
+          PLAY DEMONSTRATION →
+        </span>
       </div>
 
-      {/* Editorial Text Content Column */}
-      <div 
-        style={{ 
-          order: isAlternate ? 1 : 2,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem'
+      {/* Index Stamp in Media */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '10px',
+          left: '10px',
+          backgroundColor: '#111111',
+          color: '#FFFFFF',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.7rem',
+          fontWeight: '700',
+          padding: '2px 8px',
+          border: '1px solid #333333'
         }}
       >
-        {/* Header line: Index & Category */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span 
-              style={{
-                fontFamily: 'Verdana, sans-serif',
-                fontWeight: '900',
-                fontSize: '1.1rem',
-                color: '#E14F71',
-                letterSpacing: '0.05em'
-              }}
-            >
-              AN-{itemNumber}
-            </span>
-            <span style={{ color: '#686B6E', fontSize: '0.9rem' }}>//</span>
-            <span 
-              style={{
-                background: '#242628',
-                color: '#F0C75E',
-                border: '1px solid #444749',
-                padding: '3px 10px',
-                fontSize: '0.72rem',
-                fontWeight: 'bold',
-                fontFamily: 'Verdana, sans-serif',
-                letterSpacing: '0.05em',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                maxWidth: '240px',
-                display: 'inline-block'
-              }}
-            >
-              {item.category.toUpperCase()}
-            </span>
-          </div>
+        {itemNumber} / 28
+      </div>
+    </div>
+  );
 
-          <span style={{ fontSize: '0.72rem', color: '#8C9093', fontFamily: 'Verdana, sans-serif' }}>
-            NEURAL PIPELINE ACTIVE
-          </span>
-        </div>
+  // Common Header Pill
+  const renderHeaderPill = () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
+      <span
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontWeight: '800',
+          fontSize: '0.9rem',
+          color: '#F0C75E',
+          letterSpacing: '0.04em'
+        }}
+      >
+        [ {itemNumber} / 28 ]
+      </span>
+      <span
+        className="category-badge-pill"
+        style={{
+          backgroundColor: '#222222',
+          color: '#FFFFFF',
+          border: '1px solid #3A3A3A'
+        }}
+      >
+        {item.category.toUpperCase()}
+      </span>
+    </div>
+  );
 
-        {/* Title */}
-        <h3 
-          style={{
-            fontFamily: 'Verdana, sans-serif',
-            fontWeight: '700',
-            fontSize: '1.45rem',
-            color: '#FFFFFF',
-            lineHeight: 1.25,
-            margin: '0.2rem 0'
-          }}
-        >
-          {item.name}
-        </h3>
+  // Common Distinction Box
+  const renderDistinction = () => (
+    <div className="editorial-callout-distinction-dark">
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '800', color: '#F0C75E', letterSpacing: '0.08em', marginBottom: '3px' }}>
+        OPERATIONAL DISTINCTION
+      </div>
+      <div style={{ fontSize: '0.86rem', color: '#D4D4D8', lineHeight: 1.5, margin: 0 }}>
+        {item.distinction}
+      </div>
+    </div>
+  );
 
-        {/* One Liner: Primary Takeaway */}
-        <div 
-          style={{
-            fontSize: '0.96rem',
-            color: '#FFFFFF',
-            lineHeight: 1.6,
-            fontWeight: '500',
-            fontFamily: 'Verdana, sans-serif',
-            background: 'rgba(255,255,255,0.04)',
-            padding: '0.85rem 1rem',
-            borderLeft: '4px solid #E14F71'
-          }}
-        >
-          {item.one_liner}
-        </div>
+  // Common Compliance Note
+  const renderCompliance = () => item.compliance_note && (
+    <div
+      style={{
+        backgroundColor: 'rgba(225, 79, 113, 0.1)',
+        border: '1px solid #E14F71',
+        padding: '0.75rem 1rem',
+        fontSize: '0.8rem',
+        color: '#FFB8C6',
+        lineHeight: 1.45,
+        display: 'flex',
+        gap: '8px',
+        alignItems: 'flex-start',
+        borderRadius: '2px'
+      }}
+    >
+      <ShieldCheck size={16} color="#E14F71" style={{ flexShrink: 0, marginTop: '2px' }} />
+      <div>
+        <strong style={{ color: '#FFFFFF' }}>Statutory Safeguard:</strong> {item.compliance_note}
+      </div>
+    </div>
+  );
 
-        {/* Technical Operation & Distinction */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+  // -------------------------------------------------------------
+  // LAYOUT A: Text Left (55%) / Media Right (45%)
+  // -------------------------------------------------------------
+  if (layoutVariant === 0) {
+    return (
+      <article
+        id={`ai-${item.id}`}
+        style={{
+          backgroundColor: '#141414',
+          border: '3px solid #2A2A2A',
+          boxShadow: '8px 8px 0px #000000',
+          padding: '2.5rem',
+          marginBottom: '3rem',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '2.5rem',
+          alignItems: 'center'
+        }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {renderHeaderPill()}
+
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.15 }}>
+            {item.name}
+          </h3>
+
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.05rem', color: '#FFFFFF', fontWeight: '500', lineHeight: 1.6, margin: 0, borderLeft: '4px solid #F0C75E', paddingLeft: '1rem' }}>
+            {item.one_liner}
+          </p>
+
           <div>
-            <div style={{ fontSize: '0.72rem', fontWeight: 'bold', color: '#B4B7B9', letterSpacing: '0.08em', marginBottom: '4px' }}>
-              HOW THE ALGORITHM WORKS
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '4px' }}>
+              HOW THE ALGORITHM OPERATES
             </div>
-            <p style={{ fontSize: '0.88rem', color: '#D2D5D7', lineHeight: 1.55, margin: 0 }}>
+            <p style={{ fontSize: '0.9rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
               {item.what_it_does}
             </p>
           </div>
 
-          {/* Key Distinction Box */}
-          <div 
-            style={{
-              background: '#111212',
-              border: '2px solid #333638',
-              borderLeft: '4px solid #F0C75E',
-              padding: '0.75rem 1rem',
-              borderRadius: '2px'
-            }}
-          >
-            <div style={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#F0C75E', letterSpacing: '0.08em', marginBottom: '3px' }}>
-              OPERATIONAL DISTINCTION
+          {renderDistinction()}
+          {renderCompliance()}
+        </div>
+
+        <div>
+          {renderMediaBox()}
+        </div>
+      </article>
+    );
+  }
+
+  // -------------------------------------------------------------
+  // LAYOUT B: Media Left (45%) / Text Right (55%)
+  // -------------------------------------------------------------
+  if (layoutVariant === 1) {
+    return (
+      <article
+        id={`ai-${item.id}`}
+        style={{
+          backgroundColor: '#141414',
+          border: '3px solid #2A2A2A',
+          boxShadow: '8px 8px 0px #000000',
+          padding: '2.5rem',
+          marginBottom: '3rem',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '2.5rem',
+          alignItems: 'center'
+        }}
+      >
+        <div>
+          {renderMediaBox()}
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {renderHeaderPill()}
+
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.15 }}>
+            {item.name}
+          </h3>
+
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.05rem', color: '#FFFFFF', fontWeight: '500', lineHeight: 1.6, margin: 0, borderLeft: '4px solid #E14F71', paddingLeft: '1rem' }}>
+            {item.one_liner}
+          </p>
+
+          <div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '4px' }}>
+              HOW THE ALGORITHM OPERATES
             </div>
-            <p style={{ fontSize: '0.84rem', color: '#B4B7B9', lineHeight: 1.5, margin: 0 }}>
-              {item.distinction}
+            <p style={{ fontSize: '0.9rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
+              {item.what_it_does}
             </p>
           </div>
 
-          {/* Compliance note if present */}
-          {item.compliance_note && (
-            <div 
-              style={{
-                background: 'rgba(225, 79, 113, 0.12)',
-                border: '1px solid #E14F71',
-                padding: '0.65rem 0.85rem',
-                fontSize: '0.78rem',
-                color: '#FFB8C6',
-                lineHeight: 1.45,
-                display: 'flex',
-                gap: '8px',
-                alignItems: 'flex-start'
-              }}
-            >
-              <ShieldCheck size={16} color="#E14F71" style={{ flexShrink: 0, marginTop: '2px' }} />
-              <div>
-                <strong style={{ color: '#FFFFFF' }}>Statutory Privacy & Legal Safeguard:</strong> {item.compliance_note}
-              </div>
+          {renderDistinction()}
+          {renderCompliance()}
+        </div>
+      </article>
+    );
+  }
+
+  // -------------------------------------------------------------
+  // LAYOUT C: Full-Width Exhibition Feature
+  // -------------------------------------------------------------
+  if (layoutVariant === 2) {
+    return (
+      <article
+        id={`ai-${item.id}`}
+        style={{
+          backgroundColor: '#181818',
+          border: '3px solid #333333',
+          boxShadow: '10px 10px 0px #000000',
+          padding: '2.5rem',
+          marginBottom: '3.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.75rem'
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            {renderHeaderPill()}
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.1 }}>
+              {item.name}
+            </h3>
+          </div>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#F0C75E', border: '1px solid #333333', padding: '4px 10px' }}>
+            EXHIBITION FEATURE
+          </span>
+        </div>
+
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.1rem', color: '#FFFFFF', lineHeight: 1.6, margin: 0, maxWidth: '900px' }}>
+          {item.one_liner}
+        </p>
+
+        {/* Hero-sized media frame */}
+        <div style={{ maxWidth: '1000px', width: '100%', margin: '0 auto' }}>
+          {renderMediaBox('16 / 9', { width: '100%' })}
+        </div>
+
+        {/* 2-Column Split below media */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '0.5rem' }}>
+          <div style={{ backgroundColor: '#111111', padding: '1.25rem', border: '1px solid #282828' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '6px' }}>
+              HOW THE ALGORITHM OPERATES
             </div>
-          )}
+            <p style={{ fontSize: '0.9rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
+              {item.what_it_does}
+            </p>
+          </div>
+
+          <div>
+            {renderDistinction()}
+            {renderCompliance()}
+          </div>
+        </div>
+      </article>
+    );
+  }
+
+  // -------------------------------------------------------------
+  // LAYOUT D: Large Number + Asymmetric Editorial Spread
+  // -------------------------------------------------------------
+  if (layoutVariant === 3) {
+    return (
+      <article
+        id={`ai-${item.id}`}
+        style={{
+          backgroundColor: '#141414',
+          border: '3px solid #2A2A2A',
+          boxShadow: '8px 8px 0px #000000',
+          padding: '2.5rem',
+          marginBottom: '3rem'
+        }}
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '2rem', alignItems: 'center', marginBottom: '1.75rem', borderBottom: '2px solid #222222', paddingBottom: '1.5rem' }}>
+          <div 
+            className="editorial-number-huge" 
+            style={{ fontSize: 'clamp(3.5rem, 7vw, 5.5rem)', color: '#F0C75E' }}
+          >
+            {itemNumber}
+          </div>
+          <div>
+            <span className="category-badge-pill" style={{ backgroundColor: '#222222', color: '#FFFFFF', border: '1px solid #3A3A3A', marginBottom: '6px' }}>
+              {item.category.toUpperCase()}
+            </span>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.9rem', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.15, margin: 0 }}>
+              {item.name}
+            </h3>
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.05rem', color: '#FFFFFF', fontWeight: '500', lineHeight: 1.6, margin: 0, borderLeft: '4px solid #F0C75E', paddingLeft: '1rem' }}>
+              {item.one_liner}
+            </p>
+
+            <p style={{ fontSize: '0.9rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
+              {item.what_it_does}
+            </p>
+
+            {renderDistinction()}
+            {renderCompliance()}
+          </div>
+
+          <div>
+            {renderMediaBox()}
+          </div>
+        </div>
+      </article>
+    );
+  }
+
+  // -------------------------------------------------------------
+  // LAYOUT E: Wide Header + Framed Media Below
+  // -------------------------------------------------------------
+  return (
+    <article
+      id={`ai-${item.id}`}
+      style={{
+        backgroundColor: '#141414',
+        border: '3px solid #2A2A2A',
+        boxShadow: '8px 8px 0px #000000',
+        padding: '2.5rem',
+        marginBottom: '3rem',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem'
+      }}
+    >
+      <div style={{ borderBottom: '2px solid #242424', paddingBottom: '1rem' }}>
+        {renderHeaderPill()}
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.15, margin: '0.25rem 0 0.5rem 0' }}>
+          {item.name}
+        </h3>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: '#B0B0B5', margin: 0, maxWidth: '850px' }}>
+          {item.one_liner}
+        </p>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', alignItems: 'center' }}>
+        <div>
+          {renderMediaBox()}
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '4px' }}>
+              HOW THE ALGORITHM OPERATES
+            </div>
+            <p style={{ fontSize: '0.9rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
+              {item.what_it_does}
+            </p>
+          </div>
+
+          {renderDistinction()}
+          {renderCompliance()}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
