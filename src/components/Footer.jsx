@@ -31,7 +31,7 @@ export default function Footer({ onStartPresentation }) {
                 border: '2px solid #111111'
               }}
             >
-              SECTION 07
+              SECTION 08
             </span>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#686B6E', letterSpacing: '0.08em', fontWeight: '700' }}>
               OFFICIAL ARCHITECTURAL DOSSIER
@@ -62,7 +62,7 @@ export default function Footer({ onStartPresentation }) {
               margin: 0
             }}
           >
-            An exhaustive architectural and artificial intelligence video analytics dossier for municipal surveillance deployment. Incorporating 28 specialized deep neural models and 26 hardware nodes with zero commercial vendor dependencies.
+            An exhaustive architectural and artificial intelligence video analytics dossier for municipal surveillance deployment. Incorporating 11 core technical doctrines, 28 specialized deep neural models, and 26 hardware nodes with zero commercial vendor dependencies.
           </p>
         </div>
 
@@ -83,6 +83,10 @@ export default function Footer({ onStartPresentation }) {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.9rem', color: '#333338' }}>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircle size={16} color="#111111" />
+                <strong>11 Technical Introductions</strong> & Operational Principles
+              </li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircle size={16} color="#111111" />
                 <strong>28 AI Video Analytics</strong> (7 Chapters)
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -91,11 +95,7 @@ export default function Footer({ onStartPresentation }) {
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircle size={16} color="#111111" />
-                <strong>54 Total System Elements</strong>
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <CheckCircle size={16} color="#111111" />
-                <strong>8-Stage Sequential Data Pipeline</strong>
+                <strong>54 Total System Endpoints</strong>
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircle size={16} color="#111111" />
@@ -112,9 +112,10 @@ export default function Footer({ onStartPresentation }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.88rem', fontFamily: 'var(--font-mono)' }}>
               <a href="#hero" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>01. COVER / HERO</a>
               <a href="#stats" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>02. THE SYSTEM AT A GLANCE</a>
-              <a href="#analytics" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>03. AI VIDEO ANALYTICS (28)</a>
-              <a href="#hardware" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>04. HARDWARE INFRASTRUCTURE (26)</a>
-              <a href="#architecture" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>05. HOW IT ALL CONNECTS</a>
+              <a href="#introduction" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>03. TECHNICAL INTRODUCTION (11)</a>
+              <a href="#analytics" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>04. AI VIDEO ANALYTICS (28)</a>
+              <a href="#hardware" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>05. HARDWARE INFRASTRUCTURE (26)</a>
+              <a href="#architecture" style={{ color: '#111111', textDecoration: 'none', fontWeight: '700' }}>06. HOW IT ALL CONNECTS</a>
             </div>
           </div>
 
@@ -129,7 +130,7 @@ export default function Footer({ onStartPresentation }) {
               className="btn-editorial-primary"
               style={{ width: '100%', justifyContent: 'center' }}
             >
-              <Monitor size={16} /> LAUNCH PRESENTATION
+              <Monitor size={16} /> LAUNCH PRESENTATION (68 SLIDES)
             </button>
 
             <button
@@ -161,7 +162,7 @@ export default function Footer({ onStartPresentation }) {
             PMC Surveillance Initiative • Pune Parliamentary Constituency • Version 4.0
           </div>
           <div>
-            All demonstration feeds embedded for evaluation purposes.
+            All demonstration feeds embedded for technical evaluation purposes.
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, X, ArrowRight } from 'lucide-react';
+import { introductionData } from '../data/introductionData';
 import { analyticsData } from '../data/analyticsData';
 import { hardwareData } from '../data/hardwareData';
 
@@ -17,8 +18,30 @@ export default function SearchModal({ isOpen, onClose, onSelectItem }) {
   }, [onClose]);
 
   const allItems = [
-    ...analyticsData.map(a => ({ ...a, type: 'analytics', code: `AN-${String(a.id).padStart(2, '0')}` })),
-    ...hardwareData.map(h => ({ ...h, type: 'hardware', code: `HW-${String(h.id).padStart(2, '0')}` }))
+    ...introductionData.map(i => ({
+      id: i.id,
+      name: i.title,
+      category: i.tag,
+      one_liner: i.presentationContent,
+      type: 'introduction',
+      code: `INTRO-${i.chapterNum}`
+    })),
+    ...analyticsData.map(a => ({
+      id: a.id,
+      name: a.name,
+      category: a.category,
+      one_liner: a.one_liner,
+      type: 'analytics',
+      code: `AN-${String(a.id).padStart(2, '0')}`
+    })),
+    ...hardwareData.map(h => ({
+      id: h.id,
+      name: h.name,
+      category: h.category,
+      one_liner: h.one_liner,
+      type: 'hardware',
+      code: `HW-${String(h.id).padStart(2, '0')}`
+    }))
   ];
 
   const filtered = query.trim() === "" 
@@ -28,7 +51,8 @@ export default function SearchModal({ isOpen, onClose, onSelectItem }) {
         return (
           item.name.toLowerCase().includes(q) ||
           item.category.toLowerCase().includes(q) ||
-          item.one_liner.toLowerCase().includes(q)
+          item.one_liner.toLowerCase().includes(q) ||
+          item.code.toLowerCase().includes(q)
         );
       });
 
@@ -75,7 +99,7 @@ export default function SearchModal({ isOpen, onClose, onSelectItem }) {
           <Search size={22} color="#F0C75E" />
           <input 
             type="text"
-            placeholder="Search across 28 AI Analytics & 26 Hardware Components..."
+            placeholder="Search Introduction, 28 AI Analytics, and 26 Hardware items..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoFocus
@@ -101,7 +125,7 @@ export default function SearchModal({ isOpen, onClose, onSelectItem }) {
         <div style={{ maxHeight: '60vh', overflowY: 'auto', padding: '1rem' }}>
           {query.trim() === "" ? (
             <div style={{ padding: '2.5rem', textAlign: 'center', color: '#888890', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
-              Search any term (e.g. <span style={{ color: '#F0C75E' }}>"Thermal"</span>, <span style={{ color: '#F0C75E' }}>"Crowd"</span>, <span style={{ color: '#F0C75E' }}>"Storage"</span>, <span style={{ color: '#F0C75E' }}>"Perimeter"</span>) across all 54 system items.
+              Type any keyword (e.g. <span style={{ color: '#F0C75E' }}>"Police"</span>, <span style={{ color: '#F0C75E' }}>"Integrator"</span>, <span style={{ color: '#F0C75E' }}>"Thermal"</span>, <span style={{ color: '#F0C75E' }}>"Storage"</span>) to search the system.
             </div>
           ) : filtered.length === 0 ? (
             <div style={{ padding: '2.5rem', textAlign: 'center', color: '#E14F71', fontFamily: 'var(--font-mono)' }}>
@@ -109,58 +133,70 @@ export default function SearchModal({ isOpen, onClose, onSelectItem }) {
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {filtered.map(item => (
-                <div
-                  key={`${item.type}-${item.id}`}
-                  onClick={() => {
-                    onSelectItem(item);
-                    onClose();
-                  }}
-                  style={{
-                    backgroundColor: '#0D0D0D',
-                    border: '2px solid #282828',
-                    padding: '1rem 1.25rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '1rem',
-                    transition: 'border-color 0.15s ease'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span 
-                      style={{
-                        backgroundColor: item.type === 'analytics' ? '#E14F71' : '#F0C75E',
-                        color: item.type === 'analytics' ? '#FFFFFF' : '#111111',
-                        fontFamily: 'var(--font-mono)',
-                        padding: '3px 8px',
-                        fontSize: '0.72rem',
-                        fontWeight: '800'
-                      }}
-                    >
-                      {item.code}
-                    </span>
-                    <div>
-                      <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', fontWeight: '800', color: '#FFFFFF' }}>
-                        {item.name}
-                      </div>
-                      <div style={{ fontSize: '0.78rem', color: '#888890', marginTop: '2px' }}>
-                        {item.category.toUpperCase()} • {item.one_liner}
+              {filtered.map(item => {
+                let badgeColor = '#E14F71';
+                let textColor = '#FFFFFF';
+                if (item.type === 'introduction') {
+                  badgeColor = '#F0C75E';
+                  textColor = '#111111';
+                } else if (item.type === 'hardware') {
+                  badgeColor = '#FFFFFF';
+                  textColor = '#111111';
+                }
+
+                return (
+                  <div
+                    key={`${item.type}-${item.id}`}
+                    onClick={() => {
+                      onSelectItem(item);
+                      onClose();
+                    }}
+                    style={{
+                      backgroundColor: '#0D0D0D',
+                      border: '2px solid #282828',
+                      padding: '1rem 1.25rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '1rem',
+                      transition: 'border-color 0.15s ease'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span 
+                        style={{
+                          backgroundColor: badgeColor,
+                          color: textColor,
+                          fontFamily: 'var(--font-mono)',
+                          padding: '3px 8px',
+                          fontSize: '0.72rem',
+                          fontWeight: '800'
+                        }}
+                      >
+                        {item.code}
+                      </span>
+                      <div>
+                        <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', fontWeight: '800', color: '#FFFFFF' }}>
+                          {item.name}
+                        </div>
+                        <div style={{ fontSize: '0.78rem', color: '#888890', marginTop: '2px' }}>
+                          {item.category.toUpperCase()} • {item.one_liner}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <ArrowRight size={18} color="#B0B0B5" />
-                </div>
-              ))}
+                    <ArrowRight size={18} color="#B0B0B5" />
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
 
         {/* Bottom Footer */}
         <div style={{ padding: '0.75rem 1.5rem', backgroundColor: '#0D0D0D', borderTop: '2px solid #282828', fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#888890', display: 'flex', justifyContent: 'space-between' }}>
-          <span>{filtered.length} MATCHES</span>
+          <span>{filtered.length} MATCHES FOUND</span>
           <span>PRESS [ESC] TO EXIT</span>
         </div>
       </div>

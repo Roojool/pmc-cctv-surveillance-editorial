@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X, Grid, Maximize, Play, Monitor, ShieldCheck, ArrowRight } from 'lucide-react';
+import { introductionData } from '../data/introductionData';
 import { analyticsData } from '../data/analyticsData';
 import { hardwareData } from '../data/hardwareData';
 import PresentationOverview from './PresentationOverview';
 
-// Slide 0: INTRO
-// Slides 1 - 28: AI ANALYTICS (1 to 28)
-// Slides 29 - 54: HARDWARE (1 to 26)
-// Slide 55: ARCHITECTURE
-// Slide 56: SUMMARY
-const TOTAL_SLIDES = 57;
+// Slide Sequence:
+// Slide 0: COVER / TITLE
+// Slides 1 - 11: TECHNICAL INTRODUCTION (11 items)
+// Slides 12 - 39: AI ANALYTICS (28 items)
+// Slides 40 - 65: HARDWARE (26 items)
+// Slide 66: ARCHITECTURE (1 item)
+// Slide 67: SUMMARY (1 item)
+const TOTAL_SLIDES = 68;
 
 export default function PresentationMode({ isOpen, onClose }) {
   if (!isOpen) return null;
@@ -99,13 +102,15 @@ export default function PresentationMode({ isOpen, onClose }) {
 
   // Determine slide type
   const isIntro = currentSlide === 0;
-  const isAnalytics = currentSlide >= 1 && currentSlide <= 28;
-  const isHardware = currentSlide >= 29 && currentSlide <= 54;
-  const isArchitecture = currentSlide === 55;
-  const isSummary = currentSlide === 56;
+  const isTechnicalIntro = currentSlide >= 1 && currentSlide <= 11;
+  const isAnalytics = currentSlide >= 12 && currentSlide <= 39;
+  const isHardware = currentSlide >= 40 && currentSlide <= 65;
+  const isArchitecture = currentSlide === 66;
+  const isSummary = currentSlide === 67;
 
-  const currentAnalytic = isAnalytics ? analyticsData[currentSlide - 1] : null;
-  const currentHardware = isHardware ? hardwareData[currentSlide - 29] : null;
+  const currentIntro = isTechnicalIntro ? introductionData[currentSlide - 1] : null;
+  const currentAnalytic = isAnalytics ? analyticsData[currentSlide - 12] : null;
+  const currentHardware = isHardware ? hardwareData[currentSlide - 40] : null;
 
   return (
     <div 
@@ -126,7 +131,7 @@ export default function PresentationMode({ isOpen, onClose }) {
         overflow: 'hidden'
       }}
     >
-      {/* Top Presentation Bar (Auto-reveals when hovering near the top) */}
+      {/* Top Presentation Bar (Auto-reveals when hovering near top) */}
       <div 
         onMouseEnter={() => setShowTopBar(true)}
         onMouseLeave={() => setShowTopBar(false)}
@@ -166,8 +171,9 @@ export default function PresentationMode({ isOpen, onClose }) {
 
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#888890' }}>
             {isIntro && '00 / COVER & TITLE'}
-            {isAnalytics && `AI ANALYTICS // ${String(currentSlide).padStart(2, '0')} OF 28`}
-            {isHardware && `HARDWARE // ${String(currentSlide - 28).padStart(2, '0')} OF 26`}
+            {isTechnicalIntro && `TECHNICAL INTRODUCTION // ${String(currentSlide).padStart(2, '0')} OF 11`}
+            {isAnalytics && `AI ANALYTICS // ${String(currentSlide - 11).padStart(2, '0')} OF 28`}
+            {isHardware && `HARDWARE // ${String(currentSlide - 39).padStart(2, '0')} OF 26`}
             {isArchitecture && 'ARCHITECTURE // 08-STAGE PIPELINE'}
             {isSummary && 'SUMMARY // EXECUTIVE OVERVIEW'}
           </span>
@@ -247,7 +253,7 @@ export default function PresentationMode({ isOpen, onClose }) {
           boxSizing: 'border-box'
         }}
       >
-        {/* SLIDE 0: INTRO */}
+        {/* SLIDE 0: INTRO COVER */}
         {isIntro && (
           <div style={{ maxWidth: '1000px', width: '100%', textAlign: 'left' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.25rem', color: '#F0C75E', fontWeight: '800', marginBottom: '0.75rem' }}>
@@ -272,7 +278,7 @@ export default function PresentationMode({ isOpen, onClose }) {
             </div>
 
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.2rem', color: '#B0B0B5', lineHeight: 1.6, maxWidth: '850px', marginBottom: '3rem' }}>
-              Official technical showcase presenting 28 deep-learning video analytics capabilities and 26 high-durability hardware components engineered for 24/7 municipal operations.
+              Official technical showcase: 11 Foundational Principles, 28 AI Video Analytics capabilities, and 26 Hardware Components engineered for 24/7 municipal operations.
             </p>
 
             <button
@@ -285,7 +291,74 @@ export default function PresentationMode({ isOpen, onClose }) {
           </div>
         )}
 
-        {/* SLIDES 1 - 28: AI ANALYTICS */}
+        {/* SLIDES 1 - 11: TECHNICAL INTRODUCTION (Concise presentationContent layer) */}
+        {isTechnicalIntro && currentIntro && (
+          <div style={{ maxWidth: '950px', width: '100%', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            
+            {/* Top Index & Tag */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ backgroundColor: '#F0C75E', color: '#111111', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: '800', padding: '3px 10px' }}>
+                DOCTRINE {currentIntro.chapterNum} / 11
+              </span>
+              <span className="category-badge-pill" style={{ backgroundColor: '#222222', color: '#FFFFFF', border: '1px solid #333333' }}>
+                {currentIntro.tag}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.05, margin: 0 }}>
+              {currentIntro.title}
+            </h2>
+
+            {/* Concise Presentation Statement */}
+            <div 
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(1.2rem, 2.2vw, 1.75rem)',
+                color: '#FFFFFF',
+                fontWeight: '500',
+                lineHeight: 1.5,
+                borderLeft: `5px solid ${currentIntro.accent}`,
+                paddingLeft: '1.5rem',
+                margin: '0.5rem 0'
+              }}
+            >
+              {currentIntro.presentationContent}
+            </div>
+
+            {/* Large Key Takeaway Card */}
+            <div 
+              style={{
+                backgroundColor: '#141414',
+                border: '3px solid #282828',
+                boxShadow: '8px 8px 0px #000000',
+                padding: '2rem',
+                borderRadius: '2px',
+                marginTop: '1rem'
+              }}
+            >
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '800', color: currentIntro.accent, letterSpacing: '0.08em', marginBottom: '8px' }}>
+                KEY TAKEAWAY
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.2 }}>
+                {currentIntro.keyTakeaway}
+              </div>
+            </div>
+
+            {/* Quick Strategic Pills for Specific Slides */}
+            {currentIntro.id === 11 && (
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+                {['BUILD', 'INTEGRATE', 'MAINTAIN', 'UPGRADE', 'EVOLVE'].map(step => (
+                  <span key={step} style={{ backgroundColor: '#F0C75E', color: '#111111', padding: '6px 14px', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: '800' }}>
+                    {step}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* SLIDES 12 - 39: AI ANALYTICS (28 items) */}
         {isAnalytics && currentAnalytic && (
           <div 
             style={{
@@ -410,7 +483,7 @@ export default function PresentationMode({ isOpen, onClose }) {
           </div>
         )}
 
-        {/* SLIDES 29 - 54: HARDWARE */}
+        {/* SLIDES 40 - 65: HARDWARE (26 items) */}
         {isHardware && currentHardware && (
           <div 
             style={{
@@ -492,7 +565,7 @@ export default function PresentationMode({ isOpen, onClose }) {
           </div>
         )}
 
-        {/* SLIDE 55: ARCHITECTURE */}
+        {/* SLIDE 66: ARCHITECTURE */}
         {isArchitecture && (
           <div style={{ maxWidth: '1000px', width: '100%', textAlign: 'left' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#F0C75E', fontWeight: '800', marginBottom: '0.75rem' }}>
@@ -528,7 +601,7 @@ export default function PresentationMode({ isOpen, onClose }) {
           </div>
         )}
 
-        {/* SLIDE 56: SUMMARY */}
+        {/* SLIDE 67: SUMMARY */}
         {isSummary && (
           <div style={{ maxWidth: '900px', width: '100%', textAlign: 'left' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#F0C75E', fontWeight: '800', marginBottom: '0.75rem' }}>
@@ -540,7 +613,7 @@ export default function PresentationMode({ isOpen, onClose }) {
             </h2>
 
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.2rem', color: '#B0B0B5', lineHeight: 1.6, marginBottom: '2.5rem' }}>
-              All 28 AI Video Analytics and 26 Hardware Components for the PMC CCTV Surveillance System in the Pune Parliamentary Constituency have been successfully reviewed.
+              All 11 Technical Introduction Principles, 28 AI Video Analytics capabilities, and 26 Hardware Components for the PMC CCTV Surveillance System in the Pune Parliamentary Constituency have been successfully reviewed.
             </p>
 
             <div style={{ display: 'flex', gap: '1.25rem' }}>
@@ -564,7 +637,7 @@ export default function PresentationMode({ isOpen, onClose }) {
         )}
       </div>
 
-      {/* Bottom Floating Presentation Navigation Bar (Auto-reveals when hovering near the bottom) */}
+      {/* Bottom Floating Presentation Navigation Bar (Auto-reveals when hovering near bottom) */}
       <div 
         onMouseEnter={() => setShowBottomBar(true)}
         onMouseLeave={() => setShowBottomBar(false)}

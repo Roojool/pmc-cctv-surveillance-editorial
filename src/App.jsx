@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
+import TechnicalIntroduction from './components/TechnicalIntroduction';
 import AiIntelligenceIntro from './components/AiIntelligenceIntro';
 import AnalyticsSection from './components/AnalyticsSection';
 import HardwareSection from './components/HardwareSection';
@@ -15,6 +16,7 @@ import PresentationMode from './components/PresentationMode';
 
 import { analyticsData } from './data/analyticsData';
 import { hardwareData } from './data/hardwareData';
+import { introductionData } from './data/introductionData';
 
 export default function App() {
   const [activeVideoItem, setActiveVideoItem] = useState(null);
@@ -53,7 +55,10 @@ export default function App() {
 
   // Search Select Handler
   const handleSelectItem = (item) => {
-    if (item.type === 'analytics') {
+    if (item.type === 'introduction') {
+      const el = document.getElementById(`intro-${item.id}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else if (item.type === 'analytics') {
       const el = document.getElementById(`ai-${item.id}`);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
       setActiveFocusItem(item);
@@ -82,23 +87,28 @@ export default function App() {
         onStartPresentation={() => setIsPresentationOpen(true)}
       />
 
-      {/* 03. AI Video Intelligence Editorial Intro (Black) */}
+      {/* 03. Technical Introduction (Black) - 11 Core Principles */}
+      <TechnicalIntroduction 
+        onStartPresentation={() => setIsPresentationOpen(true)}
+      />
+
+      {/* 04. AI Video Intelligence Editorial Intro (Black) */}
       <AiIntelligenceIntro />
 
-      {/* 04. AI Analytics Chapters with Varied Layouts (Black) */}
+      {/* 05. AI Analytics Chapters with Varied Layouts (Black) */}
       <AnalyticsSection 
         onOpenVideo={(item) => setActiveVideoItem(item)}
       />
 
-      {/* 05. Hardware Infrastructure with Varied Layouts (White) */}
+      {/* 06. Hardware Infrastructure with Varied Layouts (White) */}
       <HardwareSection 
         onOpenFocus={(item) => setActiveFocusItem(item)}
       />
 
-      {/* 06. System Architecture: How It All Connects (Black) */}
+      {/* 07. System Architecture: How It All Connects (Black) */}
       <Architecture />
 
-      {/* 07. Executive Overview & Summary (White) */}
+      {/* 08. Executive Overview & Summary (White) */}
       <Footer 
         onStartPresentation={() => setIsPresentationOpen(true)}
       />

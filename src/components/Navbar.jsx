@@ -19,7 +19,7 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        backgroundColor: scrolled ? '#0A0A0A' : '#0A0A0A',
+        backgroundColor: '#0A0A0A',
         borderBottom: '3px solid #111111',
         boxShadow: scrolled ? '0 4px 0 rgba(0,0,0,0.8)' : 'none',
         transition: 'all 0.2s ease'
@@ -55,18 +55,21 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
         </a>
 
         {/* Desktop Nav Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }} className="desktop-nav-links">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.75rem' }} className="desktop-nav-links">
           <a href="#stats" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
             01 THE SYSTEM
           </a>
+          <a href="#introduction" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
+            02 INTRODUCTION
+          </a>
           <a href="#analytics" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
-            02 AI ANALYTICS (28)
+            03 AI ANALYTICS (28)
           </a>
           <a href="#hardware" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
-            03 HARDWARE (26)
+            04 HARDWARE (26)
           </a>
           <a href="#architecture" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
-            04 ARCHITECTURE
+            05 ARCHITECTURE
           </a>
         </div>
 
@@ -90,7 +93,7 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
               alignItems: 'center',
               gap: '6px'
             }}
-            title="Search all 54 items (Ctrl+K or /)"
+            title="Search all system items (Ctrl+K or /)"
           >
             <Search size={14} color="#F0C75E" />
             <span className="search-text-hide">SEARCH</span>
@@ -160,25 +163,32 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
             01 THE SYSTEM AT A GLANCE
           </a>
           <a 
+            href="#introduction" 
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
+          >
+            02 TECHNICAL INTRODUCTION (11)
+          </a>
+          <a 
             href="#analytics" 
             onClick={() => setMobileMenuOpen(false)}
             style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
           >
-            02 AI VIDEO ANALYTICS (28)
+            03 AI VIDEO ANALYTICS (28)
           </a>
           <a 
             href="#hardware" 
             onClick={() => setMobileMenuOpen(false)}
             style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
           >
-            03 HARDWARE INFRASTRUCTURE (26)
+            04 HARDWARE INFRASTRUCTURE (26)
           </a>
           <a 
             href="#architecture" 
             onClick={() => setMobileMenuOpen(false)}
             style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
           >
-            04 SYSTEM ARCHITECTURE
+            05 SYSTEM ARCHITECTURE
           </a>
           <button
             onClick={() => {
