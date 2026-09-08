@@ -83,7 +83,7 @@ export default function Footer({ onStartPresentation }) {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.9rem', color: '#333338' }}>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircle size={16} color="#111111" />
-                <strong>11 Technical Introductions</strong> & Operational Principles
+                <strong>11 Core Principles</strong> & PMC Doctrines
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircle size={16} color="#111111" />
@@ -92,10 +92,6 @@ export default function Footer({ onStartPresentation }) {
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircle size={16} color="#111111" />
                 <strong>26 Hardware Infrastructure Nodes</strong> (5 Tiers)
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <CheckCircle size={16} color="#111111" />
-                <strong>54 Total System Endpoints</strong>
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircle size={16} color="#111111" />

@@ -7,7 +7,7 @@ import PresentationOverview from './PresentationOverview';
 
 // Slide Sequence:
 // Slide 0: COVER / TITLE
-// Slides 1 - 11: TECHNICAL INTRODUCTION (11 items)
+// Slides 1 - 11: PMC DOCTRINE / TECHNICAL INTRODUCTION (11 items)
 // Slides 12 - 39: AI ANALYTICS (28 items)
 // Slides 40 - 65: HARDWARE (26 items)
 // Slide 66: ARCHITECTURE (1 item)
@@ -27,7 +27,7 @@ export default function PresentationMode({ isOpen, onClose }) {
   const handleMouseMove = (e) => {
     const y = e.clientY;
     const windowH = window.innerHeight;
-    const threshold = 95; // px near top or bottom edge
+    const threshold = 90; // px near top or bottom edge
 
     setShowTopBar(y <= threshold);
     setShowBottomBar(y >= windowH - threshold);
@@ -140,14 +140,14 @@ export default function PresentationMode({ isOpen, onClose }) {
           top: 0,
           left: 0,
           right: 0,
-          height: '64px',
+          height: '60px',
           backgroundColor: 'rgba(13, 13, 13, 0.95)',
           backdropFilter: 'blur(8px)',
           borderBottom: '2px solid #222222',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 2rem',
+          padding: '0 clamp(1rem, 3vw, 2rem)',
           zIndex: 100,
           transform: showTopBar ? 'translateY(0)' : 'translateY(-100%)',
           opacity: showTopBar ? 1 : 0,
@@ -155,49 +155,49 @@ export default function PresentationMode({ isOpen, onClose }) {
           transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <span 
             style={{
               backgroundColor: '#F0C75E',
               color: '#111111',
               fontFamily: 'var(--font-mono)',
               fontWeight: '800',
-              fontSize: '0.8rem',
+              fontSize: '0.78rem',
               padding: '3px 8px'
             }}
           >
             PMC // PRESENTATION
           </span>
 
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#888890' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#888890' }}>
             {isIntro && '00 / COVER & TITLE'}
-            {isTechnicalIntro && `TECHNICAL INTRODUCTION // ${String(currentSlide).padStart(2, '0')} OF 11`}
+            {isTechnicalIntro && `PMC DOCTRINE // ${String(currentSlide).padStart(2, '0')} OF 11`}
             {isAnalytics && `AI ANALYTICS // ${String(currentSlide - 11).padStart(2, '0')} OF 28`}
             {isHardware && `HARDWARE // ${String(currentSlide - 39).padStart(2, '0')} OF 26`}
-            {isArchitecture && 'ARCHITECTURE // 08-STAGE PIPELINE'}
-            {isSummary && 'SUMMARY // EXECUTIVE OVERVIEW'}
+            {isArchitecture && 'ARCHITECTURE // 01 OF 01'}
+            {isSummary && 'SUMMARY // 01 OF 01'}
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <button
             onClick={() => setIsOverviewOpen(true)}
             style={{
               backgroundColor: '#1E1E1E',
               color: '#FFFFFF',
               border: '1px solid #3A3A3A',
-              padding: '6px 12px',
+              padding: '5px 10px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
+              fontSize: '0.72rem',
               fontWeight: '700',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '5px'
             }}
             title="Open Directory Overview (O)"
           >
-            <Grid size={15} color="#F0C75E" /> OVERVIEW [O]
+            <Grid size={14} color="#F0C75E" /> OVERVIEW [O]
           </button>
 
           <button
@@ -206,9 +206,9 @@ export default function PresentationMode({ isOpen, onClose }) {
               backgroundColor: '#1E1E1E',
               color: '#FFFFFF',
               border: '1px solid #3A3A3A',
-              padding: '6px 12px',
+              padding: '5px 10px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
+              fontSize: '0.72rem',
               fontWeight: '700',
               cursor: 'pointer'
             }}
@@ -223,9 +223,9 @@ export default function PresentationMode({ isOpen, onClose }) {
               backgroundColor: '#E14F71',
               color: '#FFFFFF',
               border: '1px solid #111111',
-              padding: '6px 12px',
+              padding: '5px 10px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
+              fontSize: '0.72rem',
               fontWeight: '800',
               cursor: 'pointer',
               display: 'flex',
@@ -234,57 +234,48 @@ export default function PresentationMode({ isOpen, onClose }) {
             }}
             title="Exit Presentation (Esc)"
           >
-            <X size={15} /> EXIT [ESC]
+            <X size={14} /> EXIT [ESC]
           </button>
         </div>
       </div>
 
-      {/* Main Slide Stage */}
+      {/* Main Slide Stage (Responsive Viewport with Safe Area) */}
       <div 
-        className="slide-fade-transition"
+        className="slide-fade-transition presentation-stage-viewport"
         key={currentSlide}
-        style={{
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '5rem 4rem',
-          overflowY: 'auto',
-          boxSizing: 'border-box'
-        }}
       >
         {/* SLIDE 0: INTRO COVER */}
         {isIntro && (
-          <div style={{ maxWidth: '1000px', width: '100%', textAlign: 'left' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.25rem', color: '#F0C75E', fontWeight: '800', marginBottom: '0.75rem' }}>
+          <div className="presentation-slide-card" style={{ maxWidth: '1000px', textAlign: 'left' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.9rem, 1.5vw, 1.25rem)', color: '#F0C75E', fontWeight: '800', marginBottom: '0.75rem' }}>
               PMC SURVEILLANCE BRIEFING
             </div>
             
             <h1 
               className="headline-display"
               style={{
-                fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
+                fontSize: 'clamp(2.4rem, 5.5vw, 4.8rem)',
                 color: '#FFFFFF',
                 lineHeight: 0.95,
-                margin: '0 0 1.5rem 0'
+                margin: '0 0 clamp(1rem, 2vh, 1.5rem) 0'
               }}
             >
               CCTV SURVEILLANCE SYSTEM <br />
               <span style={{ color: '#E14F71' }}>(AI BASED)</span>
             </h1>
 
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '700', color: '#FFFFFF', marginBottom: '1.5rem' }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.2rem, 2.4vw, 1.75rem)', fontWeight: '700', color: '#FFFFFF', marginBottom: 'clamp(1rem, 2vh, 1.5rem)' }}>
               PUNE PARLIAMENTARY CONSTITUENCY
             </div>
 
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.2rem', color: '#B0B0B5', lineHeight: 1.6, maxWidth: '850px', marginBottom: '3rem' }}>
-              Official technical showcase: 11 Foundational Principles, 28 AI Video Analytics capabilities, and 26 Hardware Components engineered for 24/7 municipal operations.
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 1.4vw, 1.2rem)', color: '#B0B0B5', lineHeight: 1.6, maxWidth: '850px', marginBottom: 'clamp(1.5rem, 3.5vh, 2.5rem)' }}>
+              Official technical briefing: 11 Foundational Principles, 28 AI Video Analytics capabilities, and 26 Hardware Components engineered for 24/7 municipal operations.
             </p>
 
             <button
               onClick={handleNext}
               className="btn-editorial-primary"
-              style={{ padding: '1rem 2.5rem', fontSize: '1rem' }}
+              style={{ padding: 'clamp(0.75rem, 1.8vh, 1rem) clamp(1.5rem, 3vw, 2.25rem)', fontSize: 'clamp(0.85rem, 1.1vw, 0.95rem)' }}
             >
               BEGIN PRESENTATION (PRESS SPACE OR NEXT) →
             </button>
@@ -293,12 +284,12 @@ export default function PresentationMode({ isOpen, onClose }) {
 
         {/* SLIDES 1 - 11: TECHNICAL INTRODUCTION (Concise presentationContent layer) */}
         {isTechnicalIntro && currentIntro && (
-          <div style={{ maxWidth: '950px', width: '100%', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div className="presentation-slide-card" style={{ maxWidth: '1050px', display: 'flex', flexDirection: 'column', gap: 'clamp(1rem, 2.2vh, 1.75rem)' }}>
             
             {/* Top Index & Tag */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ backgroundColor: '#F0C75E', color: '#111111', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: '800', padding: '3px 10px' }}>
-                DOCTRINE {currentIntro.chapterNum} / 11
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              <span style={{ backgroundColor: '#F0C75E', color: '#111111', fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.75rem, 1vw, 0.85rem)', fontWeight: '800', padding: '3px 10px' }}>
+                PMC DOCTRINE {currentIntro.chapterNum} / 11
               </span>
               <span className="category-badge-pill" style={{ backgroundColor: '#222222', color: '#FFFFFF', border: '1px solid #333333' }}>
                 {currentIntro.tag}
@@ -306,7 +297,7 @@ export default function PresentationMode({ isOpen, onClose }) {
             </div>
 
             {/* Title */}
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.05, margin: 0 }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 3.8vw, 3.4rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.08, margin: 0 }}>
               {currentIntro.title}
             </h2>
 
@@ -314,13 +305,13 @@ export default function PresentationMode({ isOpen, onClose }) {
             <div 
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(1.2rem, 2.2vw, 1.75rem)',
+                fontSize: 'clamp(1.05rem, 1.8vw, 1.55rem)',
                 color: '#FFFFFF',
                 fontWeight: '500',
                 lineHeight: 1.5,
-                borderLeft: `5px solid ${currentIntro.accent}`,
-                paddingLeft: '1.5rem',
-                margin: '0.5rem 0'
+                borderLeft: `4px solid ${currentIntro.accent}`,
+                paddingLeft: '1.25rem',
+                margin: '0.25rem 0'
               }}
             >
               {currentIntro.presentationContent}
@@ -331,25 +322,25 @@ export default function PresentationMode({ isOpen, onClose }) {
               style={{
                 backgroundColor: '#141414',
                 border: '3px solid #282828',
-                boxShadow: '8px 8px 0px #000000',
-                padding: '2rem',
+                boxShadow: '6px 6px 0px #000000',
+                padding: 'clamp(1.25rem, 2.5vh, 1.75rem)',
                 borderRadius: '2px',
-                marginTop: '1rem'
+                marginTop: '0.5rem'
               }}
             >
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '800', color: currentIntro.accent, letterSpacing: '0.08em', marginBottom: '8px' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '800', color: currentIntro.accent, letterSpacing: '0.08em', marginBottom: '6px' }}>
                 KEY TAKEAWAY
               </div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.2 }}>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.25rem, 2.5vw, 2rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.2 }}>
                 {currentIntro.keyTakeaway}
               </div>
             </div>
 
-            {/* Quick Strategic Pills for Specific Slides */}
+            {/* Strategic Pills for Slide 11 */}
             {currentIntro.id === 11 && (
-              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
                 {['BUILD', 'INTEGRATE', 'MAINTAIN', 'UPGRADE', 'EVOLVE'].map(step => (
-                  <span key={step} style={{ backgroundColor: '#F0C75E', color: '#111111', padding: '6px 14px', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: '800' }}>
+                  <span key={step} style={{ backgroundColor: '#F0C75E', color: '#111111', padding: '5px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: '800' }}>
                     {step}
                   </span>
                 ))}
@@ -360,20 +351,11 @@ export default function PresentationMode({ isOpen, onClose }) {
 
         {/* SLIDES 12 - 39: AI ANALYTICS (28 items) */}
         {isAnalytics && currentAnalytic && (
-          <div 
-            style={{
-              maxWidth: '1200px',
-              width: '100%',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-              gap: '3.5rem',
-              alignItems: 'center'
-            }}
-          >
+          <div className="presentation-slide-card presentation-two-column">
             {/* Left Info Column */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ backgroundColor: '#E14F71', color: '#FFFFFF', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: '800', padding: '3px 10px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(0.6rem, 1.4vh, 1.15rem)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ backgroundColor: '#E14F71', color: '#FFFFFF', fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.72rem, 0.9vw, 0.8rem)', fontWeight: '800', padding: '2px 8px' }}>
                   ANALYTIC {String(currentAnalytic.id).padStart(2, '0')} / 28
                 </span>
                 <span className="category-badge-pill" style={{ backgroundColor: '#222222', color: '#F0C75E', border: '1px solid #333333' }}>
@@ -381,35 +363,35 @@ export default function PresentationMode({ isOpen, onClose }) {
                 </span>
               </div>
 
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 3.8vw, 3.2rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.1, margin: 0 }}>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 2.5vw, 2.6rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.1, margin: 0 }}>
                 {currentAnalytic.name}
               </h2>
 
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.25rem', color: '#FFFFFF', fontWeight: '500', lineHeight: 1.55, margin: 0, borderLeft: '4px solid #F0C75E', paddingLeft: '1.25rem' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.95rem, 1.2vw, 1.2rem)', color: '#FFFFFF', fontWeight: '500', lineHeight: 1.5, margin: 0, borderLeft: '3px solid #F0C75E', paddingLeft: '1rem' }}>
                 {currentAnalytic.one_liner}
               </p>
 
               <div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '4px' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '2px' }}>
                   HOW THE ALGORITHM OPERATES
                 </div>
-                <p style={{ fontSize: '1rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
+                <p style={{ fontSize: 'clamp(0.85rem, 0.95vw, 0.95rem)', color: '#B0B0B5', lineHeight: 1.5, margin: 0 }}>
                   {currentAnalytic.what_it_does}
                 </p>
               </div>
 
-              <div className="editorial-callout-distinction-dark">
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '800', color: '#F0C75E', letterSpacing: '0.08em', marginBottom: '4px' }}>
+              <div className="editorial-callout-distinction-dark" style={{ padding: 'clamp(0.6rem, 1.2vh, 0.9rem) 1rem' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '800', color: '#F0C75E', letterSpacing: '0.08em', marginBottom: '2px' }}>
                   OPERATIONAL DISTINCTION
                 </div>
-                <div style={{ fontSize: '0.92rem', color: '#D4D4D8', lineHeight: 1.5 }}>
+                <div style={{ fontSize: 'clamp(0.82rem, 0.92vw, 0.9rem)', color: '#D4D4D8', lineHeight: 1.45 }}>
                   {currentAnalytic.distinction}
                 </div>
               </div>
 
               {currentAnalytic.compliance_note && (
-                <div style={{ backgroundColor: 'rgba(225, 79, 113, 0.12)', border: '1px solid #E14F71', padding: '0.75rem 1rem', fontSize: '0.82rem', color: '#FFB8C6', display: 'flex', gap: '8px' }}>
-                  <ShieldCheck size={18} color="#E14F71" style={{ flexShrink: 0 }} />
+                <div style={{ backgroundColor: 'rgba(225, 79, 113, 0.12)', border: '1px solid #E14F71', padding: 'clamp(0.5rem, 1vh, 0.75rem) 1rem', fontSize: 'clamp(0.76rem, 0.88vw, 0.82rem)', color: '#FFB8C6', display: 'flex', gap: '8px' }}>
+                  <ShieldCheck size={16} color="#E14F71" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div><strong>Statutory Safeguard:</strong> {currentAnalytic.compliance_note}</div>
                 </div>
               )}
@@ -417,17 +399,7 @@ export default function PresentationMode({ isOpen, onClose }) {
 
             {/* Right Media Column */}
             <div>
-              <div 
-                style={{
-                  position: 'relative',
-                  aspectRatio: '16 / 9',
-                  backgroundColor: '#000000',
-                  border: '3px solid #333333',
-                  boxShadow: '10px 10px 0px #000000',
-                  overflow: 'hidden',
-                  borderRadius: '2px'
-                }}
-              >
+              <div className="presentation-media-frame">
                 {!isPlayingVideo ? (
                   <div 
                     onClick={() => setIsPlayingVideo(true)}
@@ -450,18 +422,18 @@ export default function PresentationMode({ isOpen, onClose }) {
                         justifyContent: 'center'
                       }}
                     >
-                      <div className="media-play-icon" style={{ width: '70px', height: '70px' }}>
-                        <Play size={30} fill="currentColor" style={{ marginLeft: '4px' }} />
+                      <div className="media-play-icon" style={{ width: 'clamp(50px, 6vw, 68px)', height: 'clamp(50px, 6vw, 68px)' }}>
+                        <Play size={26} fill="currentColor" style={{ marginLeft: '3px' }} />
                       </div>
                       <span 
                         style={{
-                          marginTop: '12px',
+                          marginTop: '10px',
                           backgroundColor: '#111111',
                           color: '#F0C75E',
                           fontFamily: 'var(--font-mono)',
-                          fontSize: '0.8rem',
+                          fontSize: '0.75rem',
                           fontWeight: '800',
-                          padding: '5px 14px',
+                          padding: '4px 12px',
                           border: '2px solid #282828'
                         }}
                       >
@@ -485,20 +457,11 @@ export default function PresentationMode({ isOpen, onClose }) {
 
         {/* SLIDES 40 - 65: HARDWARE (26 items) */}
         {isHardware && currentHardware && (
-          <div 
-            style={{
-              maxWidth: '1200px',
-              width: '100%',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-              gap: '3.5rem',
-              alignItems: 'center'
-            }}
-          >
+          <div className="presentation-slide-card presentation-two-column">
             {/* Left Info Column */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ backgroundColor: '#F0C75E', color: '#111111', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: '800', padding: '3px 10px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(0.6rem, 1.4vh, 1.15rem)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ backgroundColor: '#F0C75E', color: '#111111', fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.72rem, 0.9vw, 0.8rem)', fontWeight: '800', padding: '2px 8px' }}>
                   HARDWARE HW-{String(currentHardware.id).padStart(2, '0')} / 26
                 </span>
                 <span className="category-badge-pill" style={{ backgroundColor: '#222222', color: '#FFFFFF', border: '1px solid #333333' }}>
@@ -506,37 +469,37 @@ export default function PresentationMode({ isOpen, onClose }) {
                 </span>
               </div>
 
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 3.8vw, 3.2rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.1, margin: 0 }}>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 2.5vw, 2.6rem)', fontWeight: '800', color: '#FFFFFF', lineHeight: 1.1, margin: 0 }}>
                 {currentHardware.name}
               </h2>
 
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.25rem', color: '#FFFFFF', fontWeight: '500', lineHeight: 1.55, margin: 0, borderLeft: '4px solid #F0C75E', paddingLeft: '1.25rem' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.95rem, 1.2vw, 1.2rem)', color: '#FFFFFF', fontWeight: '500', lineHeight: 1.5, margin: 0, borderLeft: '3px solid #F0C75E', paddingLeft: '1rem' }}>
                 {currentHardware.one_liner}
               </p>
 
               <div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '4px' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '2px' }}>
                   PRIMARY OPERATIONAL PURPOSE
                 </div>
-                <p style={{ fontSize: '1rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
+                <p style={{ fontSize: 'clamp(0.85rem, 0.95vw, 0.95rem)', color: '#B0B0B5', lineHeight: 1.5, margin: 0 }}>
                   {currentHardware.purpose}
                 </p>
               </div>
 
               <div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '4px' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '700', color: '#888890', letterSpacing: '0.08em', marginBottom: '2px' }}>
                   SYSTEM ROLE IN PMC SURVEILLANCE
                 </div>
-                <p style={{ fontSize: '1rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
+                <p style={{ fontSize: 'clamp(0.85rem, 0.95vw, 0.95rem)', color: '#B0B0B5', lineHeight: 1.5, margin: 0 }}>
                   {currentHardware.system_role}
                 </p>
               </div>
 
-              <div className="editorial-callout-distinction-dark">
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: '800', color: '#F0C75E', letterSpacing: '0.08em', marginBottom: '4px' }}>
+              <div className="editorial-callout-distinction-dark" style={{ padding: 'clamp(0.6rem, 1.2vh, 0.9rem) 1rem' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: '800', color: '#F0C75E', letterSpacing: '0.08em', marginBottom: '2px' }}>
                   OPERATIONAL DISTINCTION
                 </div>
-                <div style={{ fontSize: '0.92rem', color: '#D4D4D8', lineHeight: 1.5 }}>
+                <div style={{ fontSize: 'clamp(0.82rem, 0.92vw, 0.9rem)', color: '#D4D4D8', lineHeight: 1.45 }}>
                   {currentHardware.distinction}
                 </div>
               </div>
@@ -544,17 +507,7 @@ export default function PresentationMode({ isOpen, onClose }) {
 
             {/* Right Media Column */}
             <div>
-              <div 
-                style={{
-                  position: 'relative',
-                  aspectRatio: '16 / 9',
-                  backgroundColor: '#000000',
-                  border: '3px solid #333333',
-                  boxShadow: '10px 10px 0px #000000',
-                  overflow: 'hidden',
-                  borderRadius: '2px'
-                }}
-              >
+              <div className="presentation-media-frame">
                 <img 
                   src={`${import.meta.env.BASE_URL}${currentHardware.image}`} 
                   alt={currentHardware.name}
@@ -567,16 +520,16 @@ export default function PresentationMode({ isOpen, onClose }) {
 
         {/* SLIDE 66: ARCHITECTURE */}
         {isArchitecture && (
-          <div style={{ maxWidth: '1000px', width: '100%', textAlign: 'left' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#F0C75E', fontWeight: '800', marginBottom: '0.75rem' }}>
+          <div className="presentation-slide-card" style={{ maxWidth: '1100px', textAlign: 'left' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', color: '#F0C75E', fontWeight: '800', marginBottom: '0.5rem' }}>
               PIPELINE ARCHITECTURE
             </div>
             
-            <h2 className="headline-display" style={{ fontSize: '3rem', color: '#FFFFFF', margin: '0 0 1rem 0' }}>
+            <h2 className="headline-display" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#FFFFFF', margin: '0 0 1rem 0' }}>
               HOW IT ALL CONNECTS
             </h2>
 
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.15rem', color: '#B0B0B5', lineHeight: 1.6, marginBottom: '2.5rem' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.95rem, 1.3vw, 1.15rem)', color: '#B0B0B5', lineHeight: 1.6, marginBottom: 'clamp(1.5rem, 3vh, 2.5rem)' }}>
               The complete end-to-end municipal surveillance data loop: Optical Sensors → High-Speed Network → Storage & VMS → Deep AI Inference → Operator Video Wall → Automated Police & City Dispatch.
             </p>
 
@@ -603,24 +556,24 @@ export default function PresentationMode({ isOpen, onClose }) {
 
         {/* SLIDE 67: SUMMARY */}
         {isSummary && (
-          <div style={{ maxWidth: '900px', width: '100%', textAlign: 'left' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#F0C75E', fontWeight: '800', marginBottom: '0.75rem' }}>
+          <div className="presentation-slide-card" style={{ maxWidth: '950px', textAlign: 'left' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', color: '#F0C75E', fontWeight: '800', marginBottom: '0.5rem' }}>
               BRIEFING CONCLUSION
             </div>
             
-            <h2 className="headline-display" style={{ fontSize: '3rem', color: '#FFFFFF', margin: '0 0 1rem 0' }}>
+            <h2 className="headline-display" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#FFFFFF', margin: '0 0 1rem 0' }}>
               SYSTEM SPECIFICATION COMPLETE
             </h2>
 
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.2rem', color: '#B0B0B5', lineHeight: 1.6, marginBottom: '2.5rem' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 1.4vw, 1.2rem)', color: '#B0B0B5', lineHeight: 1.6, marginBottom: 'clamp(1.5rem, 3vh, 2.5rem)' }}>
               All 11 Technical Introduction Principles, 28 AI Video Analytics capabilities, and 26 Hardware Components for the PMC CCTV Surveillance System in the Pune Parliamentary Constituency have been successfully reviewed.
             </p>
 
-            <div style={{ display: 'flex', gap: '1.25rem' }}>
+            <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>
               <button
                 onClick={() => goToSlide(0)}
                 className="btn-editorial-primary"
-                style={{ padding: '0.9rem 2rem' }}
+                style={{ padding: '0.85rem 1.75rem' }}
               >
                 RESTART PRESENTATION
               </button>
@@ -628,7 +581,7 @@ export default function PresentationMode({ isOpen, onClose }) {
               <button
                 onClick={onClose}
                 className="btn-editorial-dark"
-                style={{ padding: '0.9rem 2rem' }}
+                style={{ padding: '0.85rem 1.75rem' }}
               >
                 RETURN TO WEB DOSSIER
               </button>
@@ -646,14 +599,14 @@ export default function PresentationMode({ isOpen, onClose }) {
           bottom: 0,
           left: 0,
           right: 0,
-          height: '68px',
+          height: '64px',
           backgroundColor: 'rgba(13, 13, 13, 0.95)',
           backdropFilter: 'blur(8px)',
           borderTop: '2px solid #222222',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 2rem',
+          padding: '0 clamp(1rem, 3vw, 2rem)',
           zIndex: 100,
           transform: showBottomBar ? 'translateY(0)' : 'translateY(100%)',
           opacity: showBottomBar ? 1 : 0,
@@ -668,13 +621,14 @@ export default function PresentationMode({ isOpen, onClose }) {
             className="btn-editorial-dark"
             style={{
               opacity: currentSlide === 0 ? 0.3 : 1,
-              padding: '0.6rem 1.25rem',
+              padding: '0.55rem 1.15rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '6px',
+              fontSize: '0.75rem'
             }}
           >
-            <ChevronLeft size={16} /> PREVIOUS
+            <ChevronLeft size={15} /> PREVIOUS
           </button>
 
           <button
@@ -683,22 +637,28 @@ export default function PresentationMode({ isOpen, onClose }) {
             className="btn-editorial-pink"
             style={{
               opacity: currentSlide === TOTAL_SLIDES - 1 ? 0.3 : 1,
-              padding: '0.6rem 1.5rem',
+              padding: '0.55rem 1.35rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '6px',
+              fontSize: '0.75rem'
             }}
           >
-            NEXT <ChevronRight size={16} />
+            NEXT <ChevronRight size={15} />
           </button>
         </div>
 
-        {/* Progress Bar & Counter */}
+        {/* Progress Bar & Contextual Counter */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#B0B0B5', fontWeight: '700' }}>
-            SLIDE {String(currentSlide + 1).padStart(2, '0')} / {String(TOTAL_SLIDES).padStart(2, '0')}
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#B0B0B5', fontWeight: '700' }}>
+            {isIntro && 'COVER // 00'}
+            {isTechnicalIntro && `PMC DOCTRINE // ${String(currentSlide).padStart(2, '0')} / 11`}
+            {isAnalytics && `AI ANALYTICS // ${String(currentSlide - 11).padStart(2, '0')} / 28`}
+            {isHardware && `HARDWARE // ${String(currentSlide - 39).padStart(2, '0')} / 26`}
+            {isArchitecture && 'ARCHITECTURE // 01 / 01'}
+            {isSummary && 'SUMMARY // 01 / 01'}
           </span>
-          <div style={{ width: '180px', height: '6px', backgroundColor: '#222222', borderRadius: '3px', overflow: 'hidden' }}>
+          <div style={{ width: '160px', height: '5px', backgroundColor: '#222222', borderRadius: '3px', overflow: 'hidden' }}>
             <div 
               style={{
                 width: `${((currentSlide + 1) / TOTAL_SLIDES) * 100}%`,

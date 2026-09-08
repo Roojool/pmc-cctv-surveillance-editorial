@@ -93,7 +93,7 @@ export const terminalCommands = {
       { text: "[03] TRANSMISSION BACKBONE ................ [ OK - GIGABIT FIBER ACTIVE ]", type: "success" },
       { text: "[04] STORAGE & RECORDING ARRAY ............ [ OK - RAID ARRAYS SYNCHRONIZED ]", type: "success" },
       { text: "[05] STATUTORY PRIVACY ENFORCEMENT ........ [ ENFORCED - ZERO UNPRIVILEGED ACCESS ]", type: "gold" },
-      { text: "SCAN COMPLETE: 54/54 SYSTEM ELEMENTS OPERATING AT FULL CAPACITY.", type: "gold" }
+      { text: "SCAN COMPLETE: ALL SYSTEM CAPABILITIES OPERATING AT FULL CAPACITY.", type: "gold" }
     ]
   },
   analytics: {

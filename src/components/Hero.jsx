@@ -165,7 +165,11 @@ export default function Hero({ onStartPresentation }) {
               padding: '1.5rem 2rem'
             }}
           >
-            <div>
+            <a 
+              href="#analytics"
+              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+              title="Jump to 28 AI Video Analytics"
+            >
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#888890', letterSpacing: '0.06em' }}>
                 AI VIDEO ANALYTICS
               </div>
@@ -173,33 +177,41 @@ export default function Hero({ onStartPresentation }) {
                 28 CAPABILITIES
               </div>
               <div style={{ fontSize: '0.8rem', color: '#B0B0B5', marginTop: '2px' }}>
-                7 Core Operational Chapters
+                7 Core Operational Chapters →
               </div>
-            </div>
+            </a>
 
-            <div>
+            <a 
+              href="#hardware"
+              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+              title="Jump to 26 Hardware Components"
+            >
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#888890', letterSpacing: '0.06em' }}>
                 HARDWARE INFRASTRUCTURE
               </div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '800', color: '#F0C75E', marginTop: '4px' }}>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '800', color: '#FFFFFF', marginTop: '4px' }}>
                 26 COMPONENTS
               </div>
               <div style={{ fontSize: '0.8rem', color: '#B0B0B5', marginTop: '2px' }}>
-                5 Physical Engineering Tiers
+                5 Physical Engineering Tiers →
               </div>
-            </div>
+            </a>
 
-            <div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#888890', letterSpacing: '0.06em' }}>
-                TOTAL SPECIFICATION
+            <a 
+              href="#introduction"
+              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+              title="Jump to 11 Core Principles (Technical Introduction)"
+            >
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#F0C75E', letterSpacing: '0.06em', fontWeight: '700' }}>
+                TECHNICAL INTRODUCTION
               </div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '800', color: '#E14F71', marginTop: '4px' }}>
-                54 ELEMENTS
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '800', color: '#F0C75E', marginTop: '4px' }}>
+                11 CORE PRINCIPLES
               </div>
               <div style={{ fontSize: '0.8rem', color: '#B0B0B5', marginTop: '2px' }}>
-                Unbranded Enterprise Standard
+                Strategic & Operational Doctrines →
               </div>
-            </div>
+            </a>
           </div>
         </div>
 

@@ -1,17 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Monitor, Menu, X, Play } from 'lucide-react';
+import { Search, Monitor, Menu, X } from 'lucide-react';
 
 export default function Navbar({ onOpenSearch, onStartPresentation }) {
+  const [visible, setVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState('overview');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 40);
+
+      // Smart hide on downward scroll, reveal on upward scroll
+      if (currentScrollY < 60) {
+        setVisible(true);
+      } else if (currentScrollY > prevScrollY + 6 && currentScrollY > 120) {
+        // Scrolling down
+        setVisible(false);
+      } else if (currentScrollY < prevScrollY - 6) {
+        // Scrolling up
+        setVisible(true);
+      }
+
+      setPrevScrollY(currentScrollY);
+
+      // Detect active section
+      const sectionTargets = [
+        { id: 'hero', key: 'overview' },
+        { id: 'stats', key: 'overview' },
+        { id: 'introduction', key: 'introduction' },
+        { id: 'analytics', key: 'analytics' },
+        { id: 'hardware', key: 'hardware' },
+        { id: 'architecture', key: 'architecture' }
+      ];
+
+      const scrollPosition = currentScrollY + 140;
+      for (let i = sectionTargets.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionTargets[i].id);
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveSection(sectionTargets[i].key);
+          break;
+        }
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [prevScrollY]);
+
+  // Smooth scroll handler with 80px offset
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const element = document.getElementById(targetId);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const navItems = [
+    { label: 'OVERVIEW', targetId: 'stats', key: 'overview', num: '01' },
+    { label: 'TECHNICAL INTRODUCTION', targetId: 'introduction', key: 'introduction', num: '02' },
+    { label: 'AI ANALYTICS', targetId: 'analytics', key: 'analytics', num: '03' },
+    { label: 'HARDWARE', targetId: 'hardware', key: 'hardware', num: '04' },
+    { label: 'ARCHITECTURE', targetId: 'architecture', key: 'architecture', num: '05' }
+  ];
 
   return (
     <nav
@@ -20,15 +81,21 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
         top: 0,
         zIndex: 1000,
         backgroundColor: '#0A0A0A',
-        borderBottom: '3px solid #111111',
-        boxShadow: scrolled ? '0 4px 0 rgba(0,0,0,0.8)' : 'none',
-        transition: 'all 0.2s ease'
+        borderBottom: '3px solid #141414',
+        boxShadow: scrolled ? '0 6px 18px rgba(0,0,0,0.85)' : 'none',
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease',
+        willChange: 'transform'
       }}
     >
-      <div className="container-editorial" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '70px' }}>
+      <div className="container-editorial" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
         
         {/* Logo / Brand Stamp */}
-        <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <a 
+          href="#hero" 
+          onClick={(e) => handleNavClick(e, 'hero')}
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}
+        >
           <div 
             style={{
               backgroundColor: '#F0C75E',
@@ -54,23 +121,35 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
           </div>
         </a>
 
-        {/* Desktop Nav Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.75rem' }} className="desktop-nav-links">
-          <a href="#stats" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
-            01 THE SYSTEM
-          </a>
-          <a href="#introduction" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
-            02 INTRODUCTION
-          </a>
-          <a href="#analytics" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
-            03 AI ANALYTICS (28)
-          </a>
-          <a href="#hardware" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
-            04 HARDWARE (26)
-          </a>
-          <a href="#architecture" style={{ color: '#B0B0B5', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em' }}>
-            05 ARCHITECTURE
-          </a>
+        {/* Desktop Nav Links with Active Indicator */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }} className="desktop-nav-links">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.key;
+            return (
+              <a
+                key={item.key}
+                href={`#${item.targetId}`}
+                onClick={(e) => handleNavClick(e, item.targetId)}
+                style={{
+                  color: isActive ? '#F0C75E' : '#A0A0A5',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.78rem',
+                  fontWeight: isActive ? '800' : '700',
+                  letterSpacing: '0.04em',
+                  padding: '6px 2px',
+                  borderBottom: isActive ? '2px solid #F0C75E' : '2px solid transparent',
+                  transition: 'color 0.15s ease, border-color 0.15s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <span style={{ opacity: 0.6, fontSize: '0.7rem' }}>{item.num}</span>
+                <span>{item.label}</span>
+              </a>
+            );
+          })}
         </div>
 
         {/* Right Actions: Search & Presentation Button */}
@@ -155,41 +234,22 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
             gap: '1.25rem'
           }}
         >
-          <a 
-            href="#stats" 
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
-          >
-            01 THE SYSTEM AT A GLANCE
-          </a>
-          <a 
-            href="#introduction" 
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
-          >
-            02 TECHNICAL INTRODUCTION (11)
-          </a>
-          <a 
-            href="#analytics" 
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
-          >
-            03 AI VIDEO ANALYTICS (28)
-          </a>
-          <a 
-            href="#hardware" 
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
-          >
-            04 HARDWARE INFRASTRUCTURE (26)
-          </a>
-          <a 
-            href="#architecture" 
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#FFFFFF', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: '700' }}
-          >
-            05 SYSTEM ARCHITECTURE
-          </a>
+          {navItems.map((item) => (
+            <a 
+              key={item.key}
+              href={`#${item.targetId}`}
+              onClick={(e) => handleNavClick(e, item.targetId)}
+              style={{
+                color: activeSection === item.key ? '#F0C75E' : '#FFFFFF',
+                textDecoration: 'none',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.9rem',
+                fontWeight: '700'
+              }}
+            >
+              {item.num} {item.label}
+            </a>
+          ))}
           <button
             onClick={() => {
               setMobileMenuOpen(false);

@@ -194,7 +194,7 @@ export default function Stats({ onStartPresentation }) {
             </a>
           </div>
 
-          {/* Card 3: 54 Total System Elements */}
+          {/* Card 3: 11 Core Principles (Technical Introduction) */}
           <div 
             style={{
               backgroundColor: '#111111',
@@ -212,10 +212,10 @@ export default function Stats({ onStartPresentation }) {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: '800', color: '#F0C75E', letterSpacing: '0.06em' }}>
-                  CONSOLIDATED DOSSIER
+                  STRATEGIC FOUNDATION
                 </span>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#888890' }}>
-                  [ 100% COVERAGE ]
+                  [ 01 — 11 ]
                 </span>
               </div>
 
@@ -227,25 +227,25 @@ export default function Stats({ onStartPresentation }) {
                   margin: '0.5rem 0'
                 }}
               >
-                54
+                11
               </div>
 
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: '800', color: '#FFFFFF', marginBottom: '0.5rem' }}>
-                SYSTEM ELEMENTS
+                CORE PRINCIPLES
               </h3>
 
               <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', color: '#B0B0B5', lineHeight: 1.55, margin: 0 }}>
-                A unified, vendor-neutral operational blueprint designed to deliver rapid procurement evaluation, streamlined operator training, and statutory legal privacy compliance.
+                Foundational operational, architectural, and lifecycle doctrines governing city-wide public surveillance across the Pune Parliamentary Constituency.
               </p>
             </div>
 
-            <button
-              onClick={onStartPresentation}
+            <a 
+              href="#introduction"
               className="btn-editorial-primary"
-              style={{ marginTop: '2rem', width: '100%', justifyContent: 'center' }}
+              style={{ marginTop: '2rem', width: '100%', justifyContent: 'center', textDecoration: 'none' }}
             >
-              VIEW FULL PRESENTATION →
-            </button>
+              TECHNICAL INTRODUCTION <ArrowUpRight size={16} />
+            </a>
           </div>
         </div>
 

@@ -56,3 +56,58 @@
   width: 100%;
   margin: 3rem 0;
 }
+
+/* Scroll Margins for Seamless Anchor Navigation */
+#hero,
+#stats,
+#introduction,
+#analytics,
+#hardware,
+#architecture {
+  scroll-margin-top: 85px;
+}
+
+/* Presentation Mode Responsive Stage & Sizing */
+.presentation-stage-viewport {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3.5rem, 5.5vh, 4.75rem) clamp(1.25rem, 4vw, 3.5rem);
+  overflow-y: auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.presentation-slide-card {
+  width: 100%;
+  max-width: min(1440px, 94vw);
+  margin: 0 auto;
+}
+
+.presentation-two-column {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(1.5rem, 3.2vw, 3.5rem);
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .presentation-two-column {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.presentation-media-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: clamp(230px, 46vh, 500px);
+  width: 100%;
+  background-color: #000000;
+  border: 3px solid #333333;
+  box-shadow: 8px 8px 0px #000000;
+  overflow: hidden;
+  border-radius: 2px;
+}
+

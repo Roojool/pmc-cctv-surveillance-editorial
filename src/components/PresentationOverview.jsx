@@ -84,13 +84,13 @@ export default function PresentationOverview({ isOpen, onClose, onJumpToSlide })
           onClick={() => { onJumpToSlide(1); onClose(); }}
           style={{ backgroundColor: '#1A1A1A', color: '#F0C75E', border: '1px solid #333333', padding: '6px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '700', cursor: 'pointer' }}
         >
-          01. TECHNICAL INTRO (11)
+          01. TECHNICAL INTRO (11 CORE PRINCIPLES)
         </button>
         <button
           onClick={() => { onJumpToSlide(12); onClose(); }}
           style={{ backgroundColor: '#1A1A1A', color: '#E14F71', border: '1px solid #333333', padding: '6px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: '700', cursor: 'pointer' }}
         >
-          02. AI ANALYTICS (28)
+          02. AI VIDEO ANALYTICS (28)
         </button>
         <button
           onClick={() => { onJumpToSlide(40); onClose(); }}
@@ -131,7 +131,7 @@ export default function PresentationOverview({ isOpen, onClose, onJumpToSlide })
               SECTION 01
             </span>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: '800', color: '#FFFFFF' }}>
-              TECHNICAL INTRODUCTION (11)
+              TECHNICAL INTRODUCTION (11 CORE PRINCIPLES)
             </span>
           </div>
 
