@@ -206,7 +206,9 @@ export default function Stats({ onStartPresentation }) {
               flexDirection: 'column',
               justifyContent: 'space-between',
               minHeight: '320px',
-              borderRadius: '2px'
+              borderRadius: '2px',
+              boxSizing: 'border-box',
+              overflow: 'hidden'
             }}
           >
             <div>
@@ -242,7 +244,14 @@ export default function Stats({ onStartPresentation }) {
             <a 
               href="#introduction"
               className="btn-editorial-primary"
-              style={{ marginTop: '2rem', width: '100%', justifyContent: 'center', textDecoration: 'none' }}
+              style={{ 
+                marginTop: '2rem', 
+                width: '100%', 
+                maxWidth: '100%',
+                boxSizing: 'border-box',
+                justifyContent: 'center', 
+                textDecoration: 'none' 
+              }}
             >
               TECHNICAL INTRODUCTION <ArrowUpRight size={16} />
             </a>

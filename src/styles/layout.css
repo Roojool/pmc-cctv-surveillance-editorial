@@ -3,6 +3,10 @@
    Alternating Black and Light Sections
    ========================================================================= */
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 .editorial-root {
   min-height: 100vh;
   display: flex;

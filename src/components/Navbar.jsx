@@ -67,10 +67,10 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
   };
 
   const navItems = [
-    { label: 'OVERVIEW', targetId: 'stats', key: 'overview', num: '01' },
+    { label: 'THE SYSTEM', targetId: 'stats', key: 'overview', num: '01' },
     { label: 'TECHNICAL INTRODUCTION', targetId: 'introduction', key: 'introduction', num: '02' },
-    { label: 'AI ANALYTICS', targetId: 'analytics', key: 'analytics', num: '03' },
-    { label: 'HARDWARE', targetId: 'hardware', key: 'hardware', num: '04' },
+    { label: 'AI ANALYTICS (28)', targetId: 'analytics', key: 'analytics', num: '03' },
+    { label: 'HARDWARE (26)', targetId: 'hardware', key: 'hardware', num: '04' },
     { label: 'ARCHITECTURE', targetId: 'architecture', key: 'architecture', num: '05' }
   ];
 
@@ -88,41 +88,40 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
         willChange: 'transform'
       }}
     >
-      <div className="container-editorial" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
+      <div className="container-editorial" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px', gap: '1rem' }}>
         
-        {/* Logo / Brand Stamp */}
+        {/* Logo / Brand Stamp (Clean branding without oversized badge) */}
         <a 
           href="#hero" 
           onClick={(e) => handleNavClick(e, 'hero')}
-          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}
         >
-          <div 
-            style={{
-              backgroundColor: '#F0C75E',
-              color: '#111111',
-              fontFamily: 'var(--font-mono)',
-              fontWeight: '800',
-              fontSize: '0.85rem',
-              padding: '4px 8px',
-              border: '2px solid #111111',
-              boxShadow: '3px 3px 0px #111111',
-              letterSpacing: '0.05em'
-            }}
-          >
-            PMC // 04
-          </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: '700', fontSize: '1rem', color: '#FFFFFF', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: '700', fontSize: '1.02rem', color: '#FFFFFF', letterSpacing: '-0.01em', lineHeight: 1.15 }}>
               PUNE SURVEILLANCE
             </span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#888890', letterSpacing: '0.06em' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: '#888890', letterSpacing: '0.06em' }}>
               PARLIAMENTARY CONSTITUENCY
             </span>
           </div>
         </a>
 
-        {/* Desktop Nav Links with Active Indicator */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }} className="desktop-nav-links">
+        {/* Desktop / Constrained Horizontal Jump Navigation */}
+        <div 
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '0.45rem',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            whiteSpace: 'nowrap',
+            padding: '4px 0.25rem',
+            flexShrink: 1,
+            minWidth: 0
+          }} 
+          className="desktop-nav-links"
+        >
           {navItems.map((item) => {
             const isActive = activeSection === item.key;
             return (
@@ -130,22 +129,38 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
                 key={item.key}
                 href={`#${item.targetId}`}
                 onClick={(e) => handleNavClick(e, item.targetId)}
+                className="nav-jump-btn"
                 style={{
-                  color: isActive ? '#F0C75E' : '#A0A0A5',
+                  color: isActive ? '#FFFFFF' : '#A5A5AC',
+                  backgroundColor: isActive ? '#222225' : 'transparent',
+                  border: isActive ? '1px solid #4D4D55' : '1px solid #202025',
+                  borderRadius: '3px',
                   textDecoration: 'none',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.78rem',
-                  fontWeight: isActive ? '800' : '700',
+                  fontSize: '0.73rem',
+                  fontWeight: isActive ? '800' : '600',
                   letterSpacing: '0.04em',
-                  padding: '6px 2px',
-                  borderBottom: isActive ? '2px solid #F0C75E' : '2px solid transparent',
-                  transition: 'color 0.15s ease, border-color 0.15s ease',
-                  display: 'flex',
+                  padding: '5px 9px',
+                  display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '6px'
+                  gap: '6px',
+                  flexShrink: 0,
+                  transition: 'all 0.15s ease'
                 }}
               >
-                <span style={{ opacity: 0.6, fontSize: '0.7rem' }}>{item.num}</span>
+                <span 
+                  style={{ 
+                    fontSize: '0.66rem', 
+                    fontWeight: '800', 
+                    color: isActive ? '#111111' : '#F0C75E',
+                    backgroundColor: isActive ? '#F0C75E' : '#1A1A1E',
+                    padding: '1px 5px',
+                    borderRadius: '2px',
+                    border: isActive ? '1px solid #F0C75E' : '1px solid #33333A'
+                  }}
+                >
+                  {item.num}
+                </span>
                 <span>{item.label}</span>
               </a>
             );
@@ -243,11 +258,17 @@ export default function Navbar({ onOpenSearch, onStartPresentation }) {
                 color: activeSection === item.key ? '#F0C75E' : '#FFFFFF',
                 textDecoration: 'none',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.9rem',
-                fontWeight: '700'
+                fontSize: '0.88rem',
+                fontWeight: '700',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px'
               }}
             >
-              {item.num} {item.label}
+              <span style={{ backgroundColor: '#1A1A1E', color: '#F0C75E', padding: '2px 7px', fontSize: '0.72rem', borderRadius: '2px', border: '1px solid #33333A' }}>
+                {item.num}
+              </span>
+              <span>{item.label}</span>
             </a>
           ))}
           <button

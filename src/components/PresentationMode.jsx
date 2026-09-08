@@ -311,10 +311,11 @@ export default function PresentationMode({ isOpen, onClose }) {
                 lineHeight: 1.5,
                 borderLeft: `4px solid ${currentIntro.accent}`,
                 paddingLeft: '1.25rem',
-                margin: '0.25rem 0'
+                margin: '0.25rem 0',
+                whiteSpace: 'pre-line'
               }}
             >
-              {currentIntro.presentationContent}
+              {(currentIntro.presentationContent || '').replace(/\\n/g, '\n').replace(/\\"/g, '"')}
             </div>
 
             {/* Large Key Takeaway Card */}

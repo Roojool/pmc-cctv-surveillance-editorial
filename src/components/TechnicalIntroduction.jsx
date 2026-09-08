@@ -68,8 +68,11 @@ export default function TechnicalIntroduction({ onStartPresentation }) {
             const isAlternate = idx % 2 === 1;
             const isFeature = idx === 3 || idx === 7 || idx === 10; // Items 4, 8, 11 are feature spreads
 
-            // Split paragraphs in detailedContent
-            const paragraphs = item.detailedContent.split('\n\n');
+            // Defensively sanitize and split paragraphs in detailedContent
+            const cleanContent = (item.detailedContent || '')
+              .replace(/\\n/g, '\n')
+              .replace(/\\"/g, '"');
+            const paragraphs = cleanContent.split(/\n\s*\n/);
 
             return (
               <article
@@ -153,7 +156,8 @@ export default function TechnicalIntroduction({ onStartPresentation }) {
                             margin: 0,
                             fontWeight: pIdx === 0 ? '500' : '400',
                             borderLeft: pIdx === 0 ? `4px solid ${item.accent}` : 'none',
-                            paddingLeft: pIdx === 0 ? '1rem' : 0
+                            paddingLeft: pIdx === 0 ? '1rem' : 0,
+                            whiteSpace: 'pre-line'
                           }}
                         >
                           {para}
